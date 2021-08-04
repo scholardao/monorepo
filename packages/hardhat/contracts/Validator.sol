@@ -2,35 +2,50 @@ pragma solidity >=0.8.0 <0.9.0;
 // SPDX-License-Identifier: MIT
 
 import '@openzeppelin/contracts/token/ERC721/IERC721.sol';
+import '@openzeppelin/contracts/token/ERC20/ERC20.sol';
 
 contract Validator {
+
+  IERC20 public token;
+
+  constructor(address _token) {
+   token = IERC20(_token);
+  }
+
   mapping (address => string[]) validatorFields;
   mapping (address => uint256) validatorCollateral;
   mapping (address => bool) scholars;
   mapping (address => string []) fields;
 
-  function onboardValidators (
-    address _validatorId,
-    string [] memory _fields
+  function collectCollateralFromValidators (
+    address payable _validatorId,
+    string [] memory _fields,
+    uint256 _amount
     ) public payable{
       require(validatorFields[_validatorId].length == 0 , 'already onboard!');
       require( _fields.length != 0, 'fields cannot be empty');
+      //todo: twitter verification.
       validatorFields[_validatorId] = _fields;
-      validatorCollateral[_validatorId] = msg.value;
+      //if we take eth
+      //deposit eth. calc equaltokensupply and transfer it to them
+      //put in mapping
+      token.transferFrom(_validatorId, address(this), _amount);
+      validatorCollateral[_validatorId] += _amount;
     }
 
-    function onboardReviewers (
+    function verifyResearchers (
       address _scholarId,
       string [] memory _fields
       ) public {
-        require(validatorFields[msg.sender].length != 0 , ' not a validator ');
-        require(scholars[_scholarId] == false , 'already onboard');
+        //todo: twitter verification.
+        require(scholars[_scholarId] == false , 'already verified');
         require(_fields.length != 0 ,"cannot enter empty fields");
         scholars[_scholarId] = true;
         fields[_scholarId] = _fields;
       }
 
 }
+
 
 /*
 contract DAO {
