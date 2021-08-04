@@ -1,0 +1,38 @@
+pragma solidity 0.7.3;
+
+import '@openzeppelin/contracts/token/ERC20/ERC20.sol';
+
+contract SCH is ERC20 {
+
+  address public admin;
+  uint256 public deploymentTime;
+  uint256 public year;
+  uint256 public supply;
+
+  constructor(_supply)ERC20('ScholarDAO Token', 'SCH') {
+  	deploymentTime=now;
+  	year=0;
+  	supply=_supply;
+    admin = msg.sender;
+  }
+
+  function mint(address to, uint amount) external{
+    require(msg.sender==admin , 'Only admin'); //mint to the DAO contract.
+    _mint(to,amount);
+  }
+
+  function checkInflation(address _to) returns (bool success)
+  {
+      if (now >= deploymentTime + 31557600) { //31557600 seconds per year
+          uint256 supplyIncrease = (supply*10) / 100;
+          _mint(_to,supplyIncrease);
+          year+=1; // increase the current year count
+          supply += supplyIncrease; // increase supply count
+          deploymentTime += 31557600; // increase the time since deployment
+          return true;
+      }
+      else {
+          return false;
+      }
+  }
+}
