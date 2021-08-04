@@ -8,7 +8,7 @@ import '@openzeppelin/contracts/token/ERC721/IERC721.sol';
 import "./Validator.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
 
-contract Paper is  ERC721URIStorage, Validator{
+contract Main is  ERC721URIStorage, Validator{
 
   constructor(
     string memory _tokenName,
