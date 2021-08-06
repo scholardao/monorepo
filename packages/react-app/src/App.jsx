@@ -209,107 +209,107 @@ function App(props) {
   //
   // 🧫 DEBUG 👨🏻‍🔬
   //
-  useEffect(() => {
-    if (
-      DEBUG &&
-      mainnetProvider &&
-      address &&
-      selectedChainId &&
-      yourLocalBalance &&
-      yourMainnetBalance &&
-      readContracts &&
-      writeContracts &&
-      mainnetContracts
-    ) {
-      console.log("_____________________________________ 🏗 scaffold-eth _____________________________________");
-      console.log("🌎 mainnetProvider", mainnetProvider);
-      console.log("🏠 localChainId", localChainId);
-      console.log("👩‍💼 selected address:", address);
-      console.log("🕵🏻‍♂️ selectedChainId:", selectedChainId);
-      console.log("💵 yourLocalBalance", yourLocalBalance ? ethers.utils.formatEther(yourLocalBalance) : "...");
-      console.log("💵 yourMainnetBalance", yourMainnetBalance ? ethers.utils.formatEther(yourMainnetBalance) : "...");
-      console.log("📝 readContracts", readContracts);
-      console.log("🌍 DAI contract on mainnet:", mainnetContracts);
-      console.log("💵 yourMainnetDAIBalance", myMainnetDAIBalance);
-      console.log("🔐 writeContracts", writeContracts);
-    }
-  }, [
-    mainnetProvider,
-    address,
-    selectedChainId,
-    yourLocalBalance,
-    yourMainnetBalance,
-    readContracts,
-    writeContracts,
-    mainnetContracts,
-  ]);
+  // useEffect(() => {
+  //   if (
+  //     DEBUG &&
+  //     mainnetProvider &&
+  //     address &&
+  //     selectedChainId &&
+  //     yourLocalBalance &&
+  //     yourMainnetBalance &&
+  //     readContracts &&
+  //     writeContracts &&
+  //     mainnetContracts
+  //   ) {
+  //     console.log("_____________________________________ 🏗 scaffold-eth _____________________________________");
+  //     console.log("🌎 mainnetProvider", mainnetProvider);
+  //     console.log("🏠 localChainId", localChainId);
+  //     console.log("👩‍💼 selected address:", address);
+  //     console.log("🕵🏻‍♂️ selectedChainId:", selectedChainId);
+  //     console.log("💵 yourLocalBalance", yourLocalBalance ? ethers.utils.formatEther(yourLocalBalance) : "...");
+  //     console.log("💵 yourMainnetBalance", yourMainnetBalance ? ethers.utils.formatEther(yourMainnetBalance) : "...");
+  //     console.log("📝 readContracts", readContracts);
+  //     console.log("🌍 DAI contract on mainnet:", mainnetContracts);
+  //     console.log("💵 yourMainnetDAIBalance", myMainnetDAIBalance);
+  //     console.log("🔐 writeContracts", writeContracts);
+  //   }
+  // }, [
+  //   mainnetProvider,
+  //   address,
+  //   selectedChainId,
+  //   yourLocalBalance,
+  //   yourMainnetBalance,
+  //   readContracts,
+  //   writeContracts,
+  //   mainnetContracts,
+  // ]);
 
-  let networkDisplay = "";
-  if (NETWORKCHECK && localChainId && selectedChainId && localChainId !== selectedChainId) {
-    const networkSelected = NETWORK(selectedChainId);
-    const networkLocal = NETWORK(localChainId);
-    if (selectedChainId === 1337 && localChainId === 31337) {
-      networkDisplay = (
-        <div style={{ zIndex: 2, position: "absolute", right: 0, top: 60, padding: 16 }}>
-          <Alert
-            message="⚠️ Wrong Network ID"
-            description={
-              <div>
-                You have <b>chain id 1337</b> for localhost and you need to change it to <b>31337</b> to work with
-                HardHat.
-                <div>(MetaMask -&gt; Settings -&gt; Networks -&gt; Chain ID -&gt; 31337)</div>
-              </div>
-            }
-            type="error"
-            closable={false}
-          />
-        </div>
-      );
-    } else {
-      networkDisplay = (
-        <div style={{ zIndex: 2, position: "absolute", right: 0, top: 60, padding: 16 }}>
-          <Alert
-            message="⚠️ Wrong Network"
-            description={
-              <div>
-                You have <b>{networkSelected && networkSelected.name}</b> selected and you need to be on{" "}
-                <Button
-                  onClick={async () => {
-                    const ethereum = window.ethereum;
-                    const data = [
-                      {
-                        chainId: "0x" + targetNetwork.chainId.toString(16),
-                        chainName: targetNetwork.name,
-                        nativeCurrency: targetNetwork.nativeCurrency,
-                        rpcUrls: [targetNetwork.rpcUrl],
-                        blockExplorerUrls: [targetNetwork.blockExplorer],
-                      },
-                    ];
-                    console.log("data", data);
-                    const tx = await ethereum.request({ method: "wallet_addEthereumChain", params: data }).catch();
-                    if (tx) {
-                      console.log(tx);
-                    }
-                  }}
-                >
-                  <b>{networkLocal && networkLocal.name}</b>
-                </Button>
-                .
-              </div>
-            }
-            type="error"
-            closable={false}
-          />
-        </div>
-      );
-    }
-  } else {
-    networkDisplay = (
-      <div style={{ zIndex: -1, position: "absolute", right: 154, top: 28, padding: 16, color: targetNetwork.color }}>
-        {targetNetwork.name}
-      </div>
-    );
-  }
+  // let networkDisplay = "";
+  // if (NETWORKCHECK && localChainId && selectedChainId && localChainId !== selectedChainId) {
+  //   const networkSelected = NETWORK(selectedChainId);
+  //   const networkLocal = NETWORK(localChainId);
+  //   if (selectedChainId === 1337 && localChainId === 31337) {
+  //     networkDisplay = (
+  //       <div style={{ zIndex: 2, position: "absolute", right: 0, top: 60, padding: 16 }}>
+  //         <Alert
+  //           message="⚠️ Wrong Network ID!!!!!!!!!!!!!!!!!!"
+  //           description={
+  //             <div>
+  //               You have <b>chain id 1337</b> for localhost and you need to change it to <b>31337</b> to work with
+  //               HardHat.
+  //               <div>(MetaMask -&gt; Settings -&gt; Networks -&gt; Chain ID -&gt; 31337)</div>
+  //             </div>
+  //           }
+  //           type="error"
+  //           closable={false}
+  //         />
+  //       </div>
+  //     );
+  //   } else {
+  //     networkDisplay = (
+  //       <div style={{ zIndex: 2, position: "absolute", right: 0, top: 60, padding: 16 }}>
+  //         <Alert
+  //           message="⚠️ Wrong Network"
+  //           description={
+  //             <div>
+  //               You have <b>{networkSelected && networkSelected.name}</b> selected and you need to be on{" "}
+  //               <Button
+  //                 onClick={async () => {
+  //                   const ethereum = window.ethereum;
+  //                   const data = [
+  //                     {
+  //                       chainId: "0x" + targetNetwork.chainId.toString(16),
+  //                       chainName: targetNetwork.name,
+  //                       nativeCurrency: targetNetwork.nativeCurrency,
+  //                       rpcUrls: [targetNetwork.rpcUrl],
+  //                       blockExplorerUrls: [targetNetwork.blockExplorer],
+  //                     },
+  //                   ];
+  //                   console.log("data", data);
+  //                   const tx = await ethereum.request({ method: "wallet_addEthereumChain", params: data }).catch();
+  //                   if (tx) {
+  //                     console.log(tx);
+  //                   }
+  //                 }}
+  //               >
+  //                 <b>{networkLocal && networkLocal.name}</b>
+  //               </Button>
+  //               .
+  //             </div>
+  //           }
+  //           type="error"
+  //           closable={false}
+  //         />
+  //       </div>
+  //     );
+  //   }
+  // } else {
+  //   networkDisplay = (
+  //     <div style={{ zIndex: -1, position: "absolute", right: 154, top: 28, padding: 16, color: targetNetwork.color }}>
+  //       {targetNetwork.name}
+  //     </div>
+  //   );
+  // }
 
 
   const loadWeb3Modal = useCallback(async () => {
@@ -344,41 +344,13 @@ function App(props) {
     setRoute(window.location.pathname);
   }, [setRoute]);
 
-  let faucetHint = "";
-  const faucetAvailable = localProvider && localProvider.connection && targetNetwork.name.indexOf("local") !== -1;
 
-  const [faucetClicked, setFaucetClicked] = useState(false);
-  if (
-    !faucetClicked &&
-    localProvider &&
-    localProvider._network &&
-    localProvider._network.chainId === 31337 &&
-    yourLocalBalance &&
-    ethers.utils.formatEther(yourLocalBalance) <= 0
-  ) {
-    faucetHint = (
-      <div style={{ padding: 16 }}>
-        <Button
-          type="primary"
-          onClick={() => {
-            faucetTx({
-              to: address,
-              value: ethers.utils.parseEther("0.01"),
-            });
-            setFaucetClicked(true);
-          }}
-        >
-          💰 Grab funds from the faucet ⛽️
-        </Button>
-      </div>
-    );
-  }
 
   return (
     <div className="App">
       {/* ✏️ Edit the header and change the title to your project name */}
       <Header />
-      {networkDisplay}
+      {/* {networkDisplay} */}
       <BrowserRouter>
         <Menu style={{ textAlign: "center" }} selectedKeys={[route]} mode="horizontal">
           <Menu.Item key="/">
@@ -388,40 +360,40 @@ function App(props) {
               }}
               to="/"
             >
-              YourContract
+              Home
             </Link>
           </Menu.Item>
-          <Menu.Item key="/hints">
+          <Menu.Item key="/marketplace">
             <Link
               onClick={() => {
-                setRoute("/hints");
+                setRoute("/marketplace");
               }}
-              to="/hints"
+              to="/marketplace"
             >
-              Hints
+              Marketplace
             </Link>
           </Menu.Item>
-          <Menu.Item key="/exampleui">
+          <Menu.Item key="/validators">
             <Link
               onClick={() => {
-                setRoute("/exampleui");
+                setRoute("/validators");
               }}
-              to="/exampleui"
+              to="/validators"
             >
-              ExampleUI
+              Validators
             </Link>
           </Menu.Item>
-          <Menu.Item key="/mainnetdai">
+          <Menu.Item key="/upload">
             <Link
               onClick={() => {
-                setRoute("/mainnetdai");
+                setRoute("/upload");
               }}
-              to="/mainnetdai"
+              to="/upload"
             >
-              Mainnet DAI
+              Upload
             </Link>
           </Menu.Item>
-          <Menu.Item key="/subgraph">
+          {/* <Menu.Item key="/subgraph">
             <Link
               onClick={() => {
                 setRoute("/subgraph");
@@ -430,35 +402,36 @@ function App(props) {
             >
               Subgraph
             </Link>
-          </Menu.Item>
+          </Menu.Item>  */}
         </Menu>
 
         <Switch>
           <Route exact path="/">
-            {/*
-                🎛 this scaffolding is full of commonly used components
-                this <Contract/> component will automatically parse your ABI
-                and give you a form to interact with it locally
-            */}
-
-            <Contract
+            
+          <div>
+            Home
+          </div>
+            {/* <Contract
               name="YourContract"
               signer={userSigner}
               provider={localProvider}
               address={address}
               blockExplorer={blockExplorer}
-            />
+            /> */}
           </Route>
-          <Route path="/hints">
+          <Route path="/marketplace">
+            <div>
+              Marketplace
+            </div>
             <Hints
-              address={address}
-              yourLocalBalance={yourLocalBalance}
-              mainnetProvider={mainnetProvider}
-              price={price}
+           
             />
           </Route>
-          <Route path="/exampleui">
-            <ExampleUI
+          <Route path="/validators">
+            <div>
+              Validators
+            </div>
+            {/* <ExampleUI
               address={address}
               userSigner={userSigner}
               mainnetProvider={mainnetProvider}
@@ -470,36 +443,27 @@ function App(props) {
               readContracts={readContracts}
               purpose={purpose}
               setPurposeEvents={setPurposeEvents}
-            />
+            /> */}
           </Route>
-          <Route path="/mainnetdai">
-            <Contract
-              name="DAI"
-              customContract={mainnetContracts && mainnetContracts.contracts && mainnetContracts.contracts.DAI}
-              signer={userSigner}
-              provider={mainnetProvider}
-              address={address}
-              blockExplorer="https://etherscan.io/"
-            />
-            {/*
-            <Contract
-              name="UNI"
-              customContract={mainnetContracts && mainnetContracts.contracts && mainnetContracts.contracts.UNI}
-              signer={userSigner}
-              provider={mainnetProvider}
-              address={address}
-              blockExplorer="https://etherscan.io/"
-            />
-            */}
-          </Route>
-          <Route path="/subgraph">
+          <Route path="/upload">
+        <div>
+          Upload a paper
+
+          
+        </div>
+        <button>
+            Upload
+          </button>
+           
+          </Route> 
+          {/* <Route path="/subgraph">
             <Subgraph
               subgraphUri={props.subgraphUri}
               tx={tx}
               writeContracts={writeContracts}
               mainnetProvider={mainnetProvider}
             />
-          </Route>
+          </Route> */}
         </Switch>
       </BrowserRouter>
 
@@ -518,12 +482,12 @@ function App(props) {
           logoutOfWeb3Modal={logoutOfWeb3Modal}
           blockExplorer={blockExplorer}
         />
-        {faucetHint}
+        {/* {faucetHint} */}
       </div>
 
       {/* 🗺 Extra UI like gas price, eth price, faucet, and support: */}
       <div style={{ position: "fixed", textAlign: "left", left: 0, bottom: 20, padding: 10 }}>
-        <Row align="middle" gutter={[4, 4]}>
+        {/* <Row align="middle" gutter={[4, 4]}>
           <Col span={8}>
             <Ramp price={price} address={address} networks={NETWORKS} />
           </Col>
@@ -545,12 +509,12 @@ function App(props) {
               Support
             </Button>
           </Col>
-        </Row>
+        </Row> */}
 
-        <Row align="middle" gutter={[4, 4]}>
+        {/* <Row align="middle" gutter={[4, 4]}>
           <Col span={24}>
             {
-              /*  if the local provider has a signer, let's show the faucet:  */
+              
               faucetAvailable ? (
                 <Faucet localProvider={localProvider} price={price} ensProvider={mainnetProvider} />
               ) : (
@@ -558,7 +522,7 @@ function App(props) {
               )
             }
           </Col>
-        </Row>
+        </Row> */}
       </div>
     </div>
   );
