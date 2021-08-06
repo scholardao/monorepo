@@ -3,7 +3,7 @@
 Workflow:
 ![Workflow](./assets/workflow1.png)
 
-# 🏄‍♂️ Quick Start
+## 🏄‍♂️ Quick Start
 
 Prerequisites: [Node](https://nodejs.org/en/download/) plus [Yarn](https://classic.yarnpkg.com/en/docs/install/) and [Git](https://git-scm.com/downloads)
 
@@ -42,3 +42,7 @@ yarn deploy
 💼 Edit your deployment scripts in `packages/hardhat/deploy`
 
 📱 Open http://localhost:3000 to see the app
+
+### NOTE
+
+- Deploy [eth-address-verifier-cl-ea](https://github.com/rajdeepbh/eth-address-verifier-cl-ea) to a Chainlink node and call it from the smart contracts present here.
