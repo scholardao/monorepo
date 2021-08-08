@@ -17,6 +17,14 @@ packages/**/data
 packages/subgraph/config/config.json
 tenderly.yaml
 
+packages/builtinsubgraph/
+packages/scholardao-subgraph/
+packages/scholardao-subgraph1/
+packages/scholardao-subgraph2/
+
+t.gql
+t.yaml
+
 # dependencies
 /node_modules
 /.pnp

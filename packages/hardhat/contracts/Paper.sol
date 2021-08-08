@@ -81,7 +81,7 @@ contract Paper is ERC721URIStorage, DAO {
 
         // updates mapping
         paperById[newPaperId] = paper;
-        emit paperCreated(newPaperId, _owner, _authors, _fields, _subFields);
+        emit PaperCreated(newPaperId, _owner, _authors, _fields, _subFields);
 
         // send validationRequest
         for (uint256 i = 0; i < _validatorAddresses.length; i++) {

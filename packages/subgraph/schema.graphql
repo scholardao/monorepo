@@ -1,0 +1,51 @@
+type ExampleEntity @entity {
+  id: ID!
+  count: BigInt!
+  owner: Bytes! # address
+}
+
+type Paper @entity {
+  id: ID!
+  tokenURI: String!
+  title: String!
+  owner: Bytes!
+  authors: [Scholar!]!
+  validator: Validator
+  peerReviewers: [Bytes!]!
+  fields: [String!]!
+  subFields: [String!]
+  citationsUsed: [Paper!]
+  validatorTip: BigInt!
+  deadline: BigInt!
+  stage: PublicationStage!
+  amountRaised: BigInt!
+  citedBy: [Paper!]
+}
+
+type Scholar @entity {
+  id: ID!
+  name: String!
+  verification: Boolean!
+  fields: [String!]!
+  subFields: [String!]!
+  publications: [Paper!] # papers written by this scholar
+  hIndex: Int
+}
+
+type Validator @entity {
+  id: ID!
+  name: String!
+  verification: Boolean!
+  fields: [String!]!
+  subFields: [String!]!
+  scholar: Scholar # this validator's scholar account on the network
+  publications: [Paper!] # papers published by this validator (written by scholars)
+  hIndex: Int
+  collateral: BigInt!
+}
+
+enum PublicationStage {
+  Draft
+  Preprint
+  Published
+}
