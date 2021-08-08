@@ -9,7 +9,27 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
     // Learn more about args here: https://www.npmjs.com/package/hardhat-deploy#deploymentsdeploy
     from: deployer,
     // args: [ "Hello", utils.parseEther("1.5") ],
-    log: true,
+    log: true
+  });
+  await deploy("DAO", {
+    // Learn more about args here: https://www.npmjs.com/package/hardhat-deploy#deploymentsdeploy
+    from: deployer,
+    // args: [ "Hello", utils.parseEther("1.5") ],
+    log: true
+  });
+  await deploy("Paper", {
+    // Learn more about args here: https://www.npmjs.com/package/hardhat-deploy#deploymentsdeploy
+    from: deployer,
+    args: ["ScholarDAO Paper", "SCHPAPER"],
+    // args: [ "Hello", utils.parseEther("1.5") ],
+    log: true
+  });
+  await deploy("SCH", {
+    // Learn more about args here: https://www.npmjs.com/package/hardhat-deploy#deploymentsdeploy
+    from: deployer,
+    args: [8000000],
+    // args: [ "Hello", utils.parseEther("1.5") ],
+    log: true
   });
 
   /*

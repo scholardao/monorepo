@@ -1,0 +1,103 @@
+specVersion: 0.0.2
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum/contract
+    name: DAO
+    network: rinkeby
+    source:
+      address: "{{rinkeby_DAOAddress}}"
+      abi: DAO
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - PaperCreated
+        - ReviewAdded
+        - Validated
+        - ValidationRequestSent
+        - ValidatorConfirmed
+        - ValidatorResponseSent
+      abis:
+        - name: DAO
+          file: ./abis/DAO.json
+      eventHandlers:
+        - event: PaperCreated(uint256,address,address[],string[],string[])
+          handler: handlePaperCreated
+        - event: ReviewAdded(uint256,address,string,uint8)
+          handler: handleReviewAdded
+        - event: Validated(uint256,uint8)
+          handler: handleValidated
+        - event: ValidationRequestSent(uint256,address)
+          handler: handleValidationRequestSent
+        - event: ValidatorConfirmed(uint256,address,uint256)
+          handler: handleValidatorConfirmed
+        - event: ValidatorResponseSent(uint256,address,uint256)
+          handler: handleValidatorResponseSent
+      file: ./src/dao.mapping.ts
+  - kind: ethereum/contract
+    name: Paper
+    network: rinkeby
+    source:
+      address: "{{rinkeby_PaperAddress}}"
+      abi: Paper
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - Approval
+        - ApprovalForAll
+        - PaperCreated
+        - ReviewAdded
+        - Transfer
+        - Validated
+        - ValidationRequestSent
+        - ValidatorConfirmed
+        - ValidatorResponseSent
+      abis:
+        - name: Paper
+          file: ./abis/Paper.json
+      eventHandlers:
+        - event: Approval(indexed address,indexed address,indexed uint256)
+          handler: handleApproval
+        - event: ApprovalForAll(indexed address,indexed address,bool)
+          handler: handleApprovalForAll
+        - event: PaperCreated(uint256,address,address[],string[],string[])
+          handler: handlePaperCreated
+        - event: ReviewAdded(uint256,address,string,uint8)
+          handler: handleReviewAdded
+        - event: Transfer(indexed address,indexed address,indexed uint256)
+          handler: handleTransfer
+        - event: Validated(uint256,uint8)
+          handler: handleValidated
+        - event: ValidationRequestSent(uint256,address)
+          handler: handleValidationRequestSent
+        - event: ValidatorConfirmed(uint256,address,uint256)
+          handler: handleValidatorConfirmed
+        - event: ValidatorResponseSent(uint256,address,uint256)
+          handler: handleValidatorResponseSent
+      file: ./src/paper.mapping.ts
+  - kind: ethereum/contract
+    name: SCH
+    network: rinkeby
+    source:
+      address: "{{rinkeby_SCHAddress}}"
+      abi: SCH
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - Approval
+        - Transfer
+      abis:
+        - name: SCH
+          file: ./abis/SCH.json
+      eventHandlers:
+        - event: Approval(indexed address,indexed address,uint256)
+          handler: handleApproval
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleTransfer
+      file: ./src/sch.mapping.ts

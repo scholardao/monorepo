@@ -89,7 +89,7 @@ contract DAO {
     mapping(address => mapping(uint256 => Review[])) reviews;
     mapping(address => mapping(uint256 => uint256)) sponsorAmounts;
 
-    event paperCreated(
+    event PaperCreated(
         uint256 id,
         address owner,
         address payable[] authors,
