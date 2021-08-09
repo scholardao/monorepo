@@ -76,11 +76,11 @@ contract DAO {
         string commentsCid;
     }
 
-    mapping(uint256 => PaperStruct) paperById;
+    mapping(uint256 => PaperStruct) public paperById;
     mapping(address => Scholar) scholarByAddress;
     mapping(address => Validator) validatorByAddress;
-    mapping(address => bool) isValidator;
-    mapping(address => bool) isScholar;
+    mapping(address => bool) public isValidator;
+    mapping(address => bool) public isScholar;
     mapping(address => bool) isVerifiedScholar;
     string[] fields;
     mapping(string => string[]) subFields;
