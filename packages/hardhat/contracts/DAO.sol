@@ -54,7 +54,8 @@ contract DAO {
         string tokenURI;
         string title;
         address payable owner;
-        address payable[] authors;
+        address payable author;
+        // address payable[] authors;
         // address payable beneficiary;
         address payable validator;
         address payable[] peerReviewers;
@@ -91,10 +92,11 @@ contract DAO {
 
     event PaperCreated(
         uint256 id,
-        address owner,
-        address payable[] authors,
-        string[] categories,
-        string[] subCategories
+        string tokenURI,
+        address payable owner,
+        address payable author,
+        uint256[] citationsUsed,
+        uint256 validatorTip
     );
     event ReviewAdded(
         uint256 tokenId,

@@ -23,7 +23,7 @@ dataSources:
         - name: DAO
           file: ./abis/DAO.json
       eventHandlers:
-        - event: PaperCreated(uint256,address,address[],string[],string[])
+        - event: PaperCreated(uint256,string,address,address,uint256[],uint256)
           handler: handlePaperCreated
         - event: ReviewAdded(uint256,address,string,uint8)
           handler: handleReviewAdded
@@ -64,7 +64,7 @@ dataSources:
           handler: handleApproval
         - event: ApprovalForAll(indexed address,indexed address,bool)
           handler: handleApprovalForAll
-        - event: PaperCreated(uint256,address,address[],string[],string[])
+        - event: PaperCreated(uint256,string,address,address,uint256[],uint256)
           handler: handlePaperCreated
         - event: ReviewAdded(uint256,address,string,uint8)
           handler: handleReviewAdded

@@ -70,9 +70,7 @@ export function handleApprovalForAll(event: ApprovalForAll): void {}
 export function handlePaperCreated(event: PaperCreated): void {
   let paper = new Paper(event.params.id.toHex())
   paper.owner = event.params.owner
-  // paper.authors = event.params.authors.map(a => {
-  //   return a.toString();
-  // })
+  paper.author = event.params.author.toString()
   paper.save()
 }
 

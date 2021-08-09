@@ -9,7 +9,7 @@ type Paper @entity {
   tokenURI: String!
   title: String!
   owner: Bytes!
-  authors: [Scholar!]!
+  author: Scholar!
   validator: Validator
   peerReviewers: [Bytes!]!
   fields: [String!]!

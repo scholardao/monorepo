@@ -22,7 +22,7 @@ contract Paper is ERC721URIStorage, DAO {
 
     function submitDraft(
         string memory _title,
-        address payable[] memory _authors,
+        // address payable[] memory _authors,
         string memory _tokenURI,
         string[] memory _fields,
         string[] memory _subFields,
@@ -37,6 +37,7 @@ contract Paper is ERC721URIStorage, DAO {
         paperId.increment();
         uint256 newPaperId = paperId.current();
         address payable _owner = payable(msg.sender);
+        address payable _author = payable(msg.sender);
         address payable _validator;
         address payable[] memory _peerReviewers;
         // mapping(address => uint256) storage sa = paperSponsorAmounts[
@@ -47,7 +48,8 @@ contract Paper is ERC721URIStorage, DAO {
             _tokenURI,
             _title,
             _owner,
-            _authors,
+            _author,
+            // _authors,
             // _beneficiary,
             _validator,
             _peerReviewers,
@@ -81,7 +83,18 @@ contract Paper is ERC721URIStorage, DAO {
 
         // updates mapping
         paperById[newPaperId] = paper;
-        emit PaperCreated(newPaperId, _owner, _authors, _fields, _subFields);
+        emit PaperCreated(
+            newPaperId,
+            _tokenURI,
+            // _title,
+            _owner,
+            _author,
+            // _authors,
+            // _fields,
+            // _subFields,
+            _citationsUsed,
+            _validatorTip
+        );
 
         // send validationRequest
         for (uint256 i = 0; i < _validatorAddresses.length; i++) {
