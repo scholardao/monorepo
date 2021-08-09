@@ -81,7 +81,7 @@ contract DAO {
     mapping(address => Validator) validatorByAddress;
     mapping(address => bool) public isValidator;
     mapping(address => bool) public isScholar;
-    mapping(address => bool) isVerifiedScholar;
+    mapping(address => bool) public isVerifiedScholar;
     string[] fields;
     mapping(string => string[]) subFields;
     mapping(address => uint256) validatorCollateral;
