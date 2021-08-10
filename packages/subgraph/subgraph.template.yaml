@@ -4,9 +4,9 @@ schema:
 dataSources:
   - kind: ethereum/contract
     name: DAO
-    network: rinkeby
+    network: localhost
     source:
-      address: "{{rinkeby_DAOAddress}}"
+      address: "{{localhost_DAOAddress}}"
       abi: DAO
     mapping:
       kind: ethereum/events
@@ -21,7 +21,7 @@ dataSources:
         - ValidatorResponseSent
       abis:
         - name: DAO
-          file: ./abis/DAO.json
+          file: ./abis/localhost_DAO.json
       eventHandlers:
         - event: PaperCreated(uint256,string,address,address,uint256[],uint256)
           handler: handlePaperCreated
@@ -38,9 +38,9 @@ dataSources:
       file: ./src/dao.mapping.ts
   - kind: ethereum/contract
     name: Paper
-    network: rinkeby
+    network: localhost
     source:
-      address: "{{rinkeby_PaperAddress}}"
+      address: "{{localhost_PaperAddress}}"
       abi: Paper
     mapping:
       kind: ethereum/events
@@ -58,7 +58,7 @@ dataSources:
         - ValidatorResponseSent
       abis:
         - name: Paper
-          file: ./abis/Paper.json
+          file: ./abis/localhost_Paper.json
       eventHandlers:
         - event: Approval(indexed address,indexed address,indexed uint256)
           handler: handleApproval
@@ -81,9 +81,9 @@ dataSources:
       file: ./src/paper.mapping.ts
   - kind: ethereum/contract
     name: SCH
-    network: rinkeby
+    network: localhost
     source:
-      address: "{{rinkeby_SCHAddress}}"
+      address: "{{localhost_SCHAddress}}"
       abi: SCH
     mapping:
       kind: ethereum/events
@@ -94,7 +94,7 @@ dataSources:
         - Transfer
       abis:
         - name: SCH
-          file: ./abis/SCH.json
+          file: ./abis/localhost_SCH.json
       eventHandlers:
         - event: Approval(indexed address,indexed address,uint256)
           handler: handleApproval
