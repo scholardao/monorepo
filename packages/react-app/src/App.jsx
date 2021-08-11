@@ -22,6 +22,7 @@ import {
 } from "./hooks";
 // import Hints from "./Hints";
 import { ExampleUI, Hints, Subgraph } from "./views";
+import Uploadform from "./components/Uploadform";
 
 const { ethers } = require("ethers");
 /*
@@ -446,14 +447,8 @@ function App(props) {
             /> */}
           </Route>
           <Route path="/upload">
-        <div>
-          Upload a paper
-
-          
-        </div>
-        <button>
-            Upload
-          </button>
+       <Uploadform></Uploadform>
+        
            
           </Route> 
           {/* <Route path="/subgraph">
