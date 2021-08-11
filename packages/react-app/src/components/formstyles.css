@@ -1,0 +1,115 @@
+.FormButton {
+    border:solid #32de84;
+         display: inline-block;
+         padding: 10px 15px;
+         position:absolute;
+         top:80%;
+         left:59%;
+         color: #32de84;
+         text-decoration: none;
+         text-transform: uppercase;
+         transition: 0.5s;
+         letter-spacing: 4px;
+         overflow: hidden;
+}
+.FormButton:hover{
+    background: #32de84;
+    color: #050801;
+    box-shadow: 0 0 20px #32de84
+}
+.button1{
+    position:absolute;
+    top:1rem;
+    right:-12%;
+    color:#32de84;
+    background-color:#32de84;
+}
+.button2{
+    position:absolute;
+    top:1rem;
+    right:center;
+    color:#32de84;
+    background-color:#32de84;
+}
+.uploadFile{
+    width:100px;
+    height:100px;
+    background-color: blueviolet;
+}
+   .mainTitle{
+           position:absolute;
+           top:20%;
+           left:42%;
+       }
+       .filler{
+           height:550px;
+           width:80%;
+           margin:0 auto;
+           /* border:solid black; */
+       }
+       .titleContainer1{
+           position:absolute;
+           top:40%;
+           right:center;
+           color:whitesmoke;
+       }
+       .titleContainer2{
+           position:absolute;
+           top:60%;
+           right:center;
+           color:whitesmoke;
+       }
+       .titleContainer3{
+        position:absolute;
+        top:55%;
+        right:-5%;
+        color:whitesmoke;
+        
+       }
+       .titleContainer4{
+        position:absolute;
+        top:68%;
+        right:8%;
+       }
+       .titleContainer5{
+        position:absolute;
+        top:30%;
+        right:center;
+        
+       }
+       .slider{
+           width:50px
+       }
+       .helperDiv{
+           width:170px;
+           height:70px;
+           border-radius:10px;
+           background-color:#32de84;
+          
+           position:absolute;
+           right:20%;
+           top:30%;
+  
+       }
+       .helperDiv1{
+        width:170px;
+        height:70px;
+        border-radius:10px;
+        background-color:#32de84;
+       
+        position:absolute;
+        right:25%;
+        top:30%;
+       }
+       .sliderHelp{
+           color:cornflowerblue
+       }
+       .addicon{
+           position:absolute;
+           left:24%;
+           color:#32de84;
+          
+          
+        
+
+       }
