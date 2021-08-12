@@ -75,20 +75,19 @@ contract DAO {
         ReviewerDecision reviewerDecision;
         string commentsCid;
     }
-
     mapping(uint256 => PaperStruct) public paperById;
-    mapping(address => Scholar) scholarByAddress;
-    mapping(address => Validator) validatorByAddress;
+    mapping(address => Scholar) public scholarByAddress;
+    mapping(address => Validator) public validatorByAddress;
     mapping(address => bool) public isValidator;
     mapping(address => bool) public isScholar;
     mapping(address => bool) public isVerifiedScholar;
-    string[] fields;
-    mapping(string => string[]) subFields;
+    string[] public fields;
+    mapping(string => string[]) public subFields;
     mapping(address => uint256) validatorCollateral;
-    mapping(address => mapping(uint256 => bool)) validatorRequests;
-    mapping(address => mapping(uint256 => uint256)) validatorResponseDeadline;
-    mapping(address => mapping(uint256 => Review[])) reviews;
-    mapping(address => mapping(uint256 => uint256)) sponsorAmounts;
+    mapping(address => mapping(uint256 => bool)) public validatorRequests;
+    mapping(address => mapping(uint256 => uint256)) public validatorResponseDeadline;
+    mapping(address => mapping(uint256 => Review[])) public reviews;
+    mapping(address => mapping(uint256 => uint256)) public sponsorAmounts;
 
     event PaperCreated(
         uint256 id,
