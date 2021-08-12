@@ -192,4 +192,9 @@ contract DAO {
         validatorCollateral[msg.sender] = _collateral;
         return true;
     }
+    function getPaper (
+    uint256 _tokenId
+    ) public view returns (PaperStruct memory){
+    return paperById[_tokenId];
+    }
 }
