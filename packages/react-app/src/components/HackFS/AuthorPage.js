@@ -36,26 +36,35 @@ const themeLight = createTheme({
     },
   },
 });
-function createData(title, authors, submitted, status) {
-  return { title, authors, submitted, status };
+
+function createData(id, title, authors, submitted, status) {
+  return { id, title, authors, submitted, status };
 }
 
 export default function Test(props) {
   const classes = useStyles();
   const paperId = useContractReader(props.readContracts, "Paper", "paperId");
-  let [rows, setRows] = useState([]);
-  useEffect(async () => {
-    console.log(paperId);
-    let tempRows = [];
-    for (let i = 0; i <= paperId; i++) {
-      const paper = await props.readContracts["Paper"]["getPaper"](i);
-      console.log(i);
-      console.log(paper);
-      tempRows.push(createData(paper["id"], paper["title"], paper["author"], stages[paper["stage"]]));
-    }
-    setRows(tempRows);
-  }, [paperId]);
+  // let [rows, setRows] = useState([]);
+  // useEffect(async () => {
+  //   console.log(paperId);
+  //   let tempRows = [];
+  //   for (let i = 0; i <= paperId; i++) {
+  //     const paper = await props.readContracts["Paper"]["getPaper"](i);
+  //     console.log(i);
+  //     console.log(paper);
+  //     tempRows.push(createData(paper["id"], paper["title"], paper["author"], stages[paper["stage"]]));
+  //   }
+  //   setRows(tempRows);
+  // }, [paperId]);
 
+  const rows = [
+    createData("1", "Bitcoin Whitepaper", "Satoshi Nakomoto, Random name", "May 12 2021", "Drafted"),
+    createData("2", "Bitcoin Whitepaper", "Satoshi Nakomoto, Random name", "May 12 2021", "Drafted"),
+    createData("3", "Bitcoin Whitepaper", "Satoshi Nakomoto, Random name", "May 12 2021", "Drafted"),
+    createData("4", "Bitcoin Whitepaper", "Satoshi Nakomoto, Random name", "May 12 2021", "Drafted"),
+    createData("5", "Bitcoin Whitepaper", "Satoshi Nakomoto, Random name", "May 12 2021", "Drafted"),
+  ];
+  console.log(rows);
   return (
     <div style={{ backgroundColor: "#F7F8FC" }}>
       <Grid container>
@@ -70,10 +79,10 @@ export default function Test(props) {
               </Grid>
               <Grid item>
                 <Typography variant="h4" className={classes.authorDescription}>
-                  JONES FERDINAND
+                  SATOSHI NAKOMOTO
                 </Typography>
                 <Typography className={classes.authorDescription}>Professor at Nowhere University</Typography>
-                <Typography className={classes.authorDescription}>Scholar Reputation: 15</Typography>
+                <Typography className={classes.authorDescription}>Citations: 15</Typography>
                 <Typography className={classes.authorDescription}>Published papers: 100</Typography>
               </Grid>
             </Grid>

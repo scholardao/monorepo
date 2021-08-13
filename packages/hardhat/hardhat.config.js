@@ -24,11 +24,14 @@ const { isAddress, getAddress, formatUnits, parseUnits } = utils;
 //
 // Select the network you want to deploy to here:
 //
-const defaultNetwork = "localhost";
+const defaultNetwork = "rinkeby";
 
 function mnemonic() {
   try {
-    return fs.readFileSync("./mnemonic.txt").toString().trim();
+    return fs
+      .readFileSync("./mnemonic.txt")
+      .toString()
+      .trim();
   } catch (e) {
     if (defaultNetwork !== "localhost") {
       console.log(
@@ -49,7 +52,7 @@ module.exports = {
 
   networks: {
     localhost: {
-      url: "http://localhost:8545",
+      url: "http://localhost:8545"
       /*
         notice no mnemonic here? it will just use account 0 of the hardhat node to deploy
         (you can put in a mnemonic here to set the deployer locally)
@@ -58,109 +61,109 @@ module.exports = {
     rinkeby: {
       url: "https://rinkeby.infura.io/v3/460f40a260564ac4a4f4b3fffb032dad", // <---- YOUR INFURA ID! (or it won't work)
       accounts: {
-        mnemonic: mnemonic(),
-      },
+        mnemonic: mnemonic()
+      }
     },
     kovan: {
       url: "https://kovan.infura.io/v3/460f40a260564ac4a4f4b3fffb032dad", // <---- YOUR INFURA ID! (or it won't work)
       accounts: {
-        mnemonic: mnemonic(),
-      },
+        mnemonic: mnemonic()
+      }
     },
     mainnet: {
       url: "https://mainnet.infura.io/v3/460f40a260564ac4a4f4b3fffb032dad", // <---- YOUR INFURA ID! (or it won't work)
       accounts: {
-        mnemonic: mnemonic(),
-      },
+        mnemonic: mnemonic()
+      }
     },
     ropsten: {
       url: "https://ropsten.infura.io/v3/460f40a260564ac4a4f4b3fffb032dad", // <---- YOUR INFURA ID! (or it won't work)
       accounts: {
-        mnemonic: mnemonic(),
-      },
+        mnemonic: mnemonic()
+      }
     },
     goerli: {
       url: "https://goerli.infura.io/v3/460f40a260564ac4a4f4b3fffb032dad", // <---- YOUR INFURA ID! (or it won't work)
       accounts: {
-        mnemonic: mnemonic(),
-      },
+        mnemonic: mnemonic()
+      }
     },
     xdai: {
       url: "https://rpc.xdaichain.com/",
       gasPrice: 1000000000,
       accounts: {
-        mnemonic: mnemonic(),
-      },
+        mnemonic: mnemonic()
+      }
     },
     matic: {
       url: "https://rpc-mainnet.maticvigil.com/",
       gasPrice: 1000000000,
       accounts: {
-        mnemonic: mnemonic(),
-      },
+        mnemonic: mnemonic()
+      }
     },
     rinkebyArbitrum: {
       url: "https://rinkeby.arbitrum.io/rpc",
       gasPrice: 0,
       accounts: {
-        mnemonic: mnemonic(),
+        mnemonic: mnemonic()
       },
       companionNetworks: {
-        l1: "rinkeby",
-      },
+        l1: "rinkeby"
+      }
     },
     localArbitrum: {
       url: "http://localhost:8547",
       gasPrice: 0,
       accounts: {
-        mnemonic: mnemonic(),
+        mnemonic: mnemonic()
       },
       companionNetworks: {
-        l1: "localArbitrumL1",
-      },
+        l1: "localArbitrumL1"
+      }
     },
     localArbitrumL1: {
       url: "http://localhost:7545",
       gasPrice: 0,
       accounts: {
-        mnemonic: mnemonic(),
+        mnemonic: mnemonic()
       },
       companionNetworks: {
-        l2: "localArbitrum",
-      },
+        l2: "localArbitrum"
+      }
     },
     kovanOptimism: {
       url: "https://kovan.optimism.io",
       gasPrice: 0,
       accounts: {
-        mnemonic: mnemonic(),
+        mnemonic: mnemonic()
       },
       ovm: true,
       companionNetworks: {
-        l1: "kovan",
-      },
+        l1: "kovan"
+      }
     },
     localOptimism: {
       url: "http://localhost:8545",
       gasPrice: 0,
       accounts: {
-        mnemonic: mnemonic(),
+        mnemonic: mnemonic()
       },
       ovm: true,
       companionNetworks: {
-        l1: "localOptimismL1",
-      },
+        l1: "localOptimismL1"
+      }
     },
     localOptimismL1: {
       url: "http://localhost:9545",
       gasPrice: 0,
       accounts: {
-        mnemonic: mnemonic(),
+        mnemonic: mnemonic()
       },
       companionNetworks: {
-        l2: "localOptimism",
-      },
-    },
+        l2: "localOptimism"
+      }
+    }
   },
   solidity: {
     compilers: [
@@ -169,29 +172,29 @@ module.exports = {
         settings: {
           optimizer: {
             enabled: true,
-            runs: 200,
-          },
-        },
+            runs: 200
+          }
+        }
       },
       {
         version: "0.6.7",
         settings: {
           optimizer: {
             enabled: true,
-            runs: 200,
-          },
-        },
-      },
-    ],
+            runs: 200
+          }
+        }
+      }
+    ]
   },
   ovm: {
-    solcVersion: "0.7.6",
+    solcVersion: "0.7.6"
   },
   namedAccounts: {
     deployer: {
-      default: 0, // here this will by default take the first account as deployer
-    },
-  },
+      default: 0 // here this will by default take the first account as deployer
+    }
+  }
 };
 
 const DEBUG = false;
@@ -232,7 +235,7 @@ task("fundedwallet", "Create a wallet (pk) link and fund it with deployer?")
     let amount = taskArgs.amount ? taskArgs.amount : "0.01";
     const tx = {
       to: randomWallet.address,
-      value: ethers.utils.parseEther(amount),
+      value: ethers.utils.parseEther(amount)
     };
 
     //SEND USING LOCAL DEPLOYER MNEMONIC IF THERE IS ONE
@@ -372,7 +375,10 @@ task(
   async (_, { ethers }) => {
     const hdkey = require("ethereumjs-wallet/hdkey");
     const bip39 = require("bip39");
-    let mnemonic = fs.readFileSync("./mnemonic.txt").toString().trim();
+    let mnemonic = fs
+      .readFileSync("./mnemonic.txt")
+      .toString()
+      .trim();
     if (DEBUG) console.log("mnemonic", mnemonic);
     const seed = await bip39.mnemonicToSeed(mnemonic);
     if (DEBUG) console.log("seed", seed);
@@ -425,7 +431,7 @@ async function addr(ethers, addr) {
 
 task("accounts", "Prints the list of accounts", async (_, { ethers }) => {
   const accounts = await ethers.provider.listAccounts();
-  accounts.forEach((account) => console.log(account));
+  accounts.forEach(account => console.log(account));
 });
 
 task("blockNumber", "Prints the block number", async (_, { ethers }) => {
@@ -484,7 +490,7 @@ task("send", "Send ETH")
         "gwei"
       ).toHexString(),
       gasLimit: taskArgs.gasLimit ? taskArgs.gasLimit : 24000,
-      chainId: network.config.chainId,
+      chainId: network.config.chainId
     };
 
     if (taskArgs.data !== undefined) {

@@ -22,6 +22,7 @@ export default function MainPage(props) {
   const classes = useStyles();
   const paperId = useContractReader(props.readContracts, "Paper", "paperId");
   let [rows, setRows] = useState([]);
+
   useEffect(async () => {
     console.log(paperId);
     let tempRows = [];
