@@ -1,16 +1,16 @@
-pragma solidity >=0.8.0 <0.9.0;
+pragma solidity >=0.6.0 <0.9.0;
+pragma experimental ABIEncoderV2;
+
 // SPDX-License-Identifier: MIT
 
 import "hardhat/console.sol";
-import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/token/ERC721/IERC721.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
 
-import "./Validator.sol";
 import "./DAO.sol";
 
-contract Paper is ERC721URIStorage, DAO {
+contract Paper is ERC721, DAO {
     using Counters for Counters.Counter;
     Counters.Counter private paperId;
 
@@ -18,7 +18,7 @@ contract Paper is ERC721URIStorage, DAO {
 
     constructor(string memory _tokenName, string memory _tokenSymbol)
         ERC721(_tokenName, _tokenSymbol)
-    {}
+    public    {}
 
     function submitDraft(
         string memory _title,
