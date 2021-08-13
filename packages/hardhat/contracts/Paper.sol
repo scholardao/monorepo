@@ -12,7 +12,7 @@ import "./DAO.sol";
 
 contract Paper is ERC721URIStorage, DAO {
     using Counters for Counters.Counter;
-    Counters.Counter private paperId;
+    Counters.Counter public paperId;
 
     // mapping(uint256 => mapping(address => uint256)) paperSponsorAmounts;
 

@@ -1,19 +1,9 @@
-import {
-  Grid,
-  Typography,
-  Box,
-  Paper,
-  Table,
-  TableHead,
-  TableRow,
-  TableCell,
-  TableBody,
-} from "@material-ui/core";
+import { Grid, Typography, Box, Paper, Table, TableHead, TableRow, TableCell, TableBody } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import React from "react";
 import { useHistory } from "react-router-dom";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1,
     marginLeft: "40px",
@@ -47,23 +37,23 @@ export default function PaperDashboard(props) {
           <Table arial-label="something cool">
             <TableHead>
               <TableRow>
+                <TableCell>ID</TableCell>
                 <TableCell>Title</TableCell>
                 <TableCell>Authors</TableCell>
-                <TableCell>Submitted</TableCell>
                 <TableCell>Status</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {props.rows.map((row) => (
+              {props.rows.map(row => (
                 <TableRow
-                  onClick={() => history.push("/lol")}
+                  onClick={() => history.push("/papers/" + row.id)}
                   hover={true}
                   key={row.title}
                   className={classes.tableRow}
                 >
+                  <TableCell>{row.id}</TableCell>
                   <TableCell>{row.title}</TableCell>
                   <TableCell>{row.authors}</TableCell>
-                  <TableCell>{row.submitted}</TableCell>
                   <TableCell>{row.status}</TableCell>
                 </TableRow>
               ))}
