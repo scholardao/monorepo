@@ -6,11 +6,23 @@
     min-height: 600px;
     right:18%;
     align-content: center;
-    background-color: whitesmoke;
+    background-color: none;
     
 
 
 
+}
+.mainTitle{
+    color:black;
+    position:absolute;
+    top:5%;
+    left:10%
+}
+.mainTitle2{
+    color:black;
+    position:absolute;
+    top:13%;
+    left:15%
 }
 .titleContainer1{
     /* border:solid orange; */
@@ -18,7 +30,7 @@
     height:200px;
     position:absolute;
     top:20%;
-    right:35%;
+    right:45%;
 
 }
 .titleContainer2{
@@ -27,7 +39,7 @@
     height:200px;
     position:absolute;
     top:40%;
-    right:30%;
+    right:40%;
 }
 .titleContainer3{
     /* border:solid orange; */
@@ -35,7 +47,7 @@
     height:200px;
     position:absolute;
     top:60%;
-    right:35%;
+    right:45%;
 }
 .titleContainer4{
 
@@ -45,34 +57,43 @@
     top:15%
 }
 .helperDiv1{
-    width:200px;
-    height:70px;
+    width:250px;
+    height:40px;
     border-radius:10px;
     color:honeydew;
     background-color:#4280c7;
     position:absolute;
+    top:20%;
+    right:-34%;
+    font-size:medium;
+}
+.iconsArrow{
+    position:absolute;
     top:10%;
-    right:-30%;
+    right:100%
 }
 .helperDiv2{
-    width:350px;
-    height:70px;
+    width:500px;
+    height:40px;
     border-radius:10px;
     color:honeydew;
     background-color:#4280c7;
     position:absolute;
-    top:10%;
-    right:-40%;
+    top:17%;
+    right:-60%;
+    font-size:medium;
 }
 .helperDiv3{
-    width:250px;
-    height:70px;
+    width:520px;
+    height:40px;
     border-radius:10px;
     color:honeydew;
     background-color:#4280c7;
     position: absolute;
-    top:20%;
-    right:-35%;
+   
+    top:32%;
+    right:-85%;
+    font-size:medium;
 }
 #buttonsForm1{
     position:absolute;

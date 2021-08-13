@@ -5,7 +5,7 @@ import { Button, FormControl,Grid,TextField,Select,MenuItem, Container } from '@
 import { createTheme } from '@material-ui/core/styles';
 import { lightGreen } from '@material-ui/core/colors';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack'
-
+import ArrowLeftIcon from '@material-ui/icons/ArrowLeft';
 
 import { Typography } from '@material-ui/core';
 
@@ -39,37 +39,43 @@ import { Typography } from '@material-ui/core';
 <form  className = "else" onSubmit ={this.formSubmitHandler} noValidate autoComplete="off">
         <div className = "formpt1" >
                <div className = "filler"></div>
-                    <Typography gutterBottom variant="h4" className = "mainTitle">Submit a paper</Typography>
-            
+                    <Typography gutterBottom variant="h4" className = "mainTitle">What paper are you working on right now?</Typography>
+                    <Typography variant = "h6" className = "mainTitle2">
+                  Add your current paper and we will help publish it
+                    </Typography>
                     <div className = "titleContainer1" >
                       
             <Typography className = "Typography" variant = "h6">
                 What is your paper's title?
             </Typography>
-              <TextField  margin = "dense" id="filled-basic" label="Title" variant="filled" defaultValue = {values.title} className = "textfield" onChange = {handleChange("title")}  />
+            
+              <TextField  margin = "dense" id="filled-basic" label="Title" variant="outlined" defaultValue = {values.title} className = "textfield" onChange = {handleChange("title")}  />
               <div className = "helperDiv1">
-        <Typography>A short concise title is best</Typography>
+                A short concise title is best
+                <ArrowLeftIcon fontSize = "large" color = "primary" className = "iconsArrow"></ArrowLeftIcon>
               </div>
              
               </div>
         
-        
+             
               <div className = "titleContainer2">
               <Typography className = "Typography" variant = "h6">
                 What is your paper's subject?
             </Typography>
-              <TextField maxWidth margin = "dense" id = "outlined-basic" label="Subject" variant="filled" defaultValue = {values.subject} className = "textfield" onChange = {handleChange("subject")}  />
+              <TextField  margin = "dense" id = "outlined-basic" label="Subject" variant="outlined" defaultValue = {values.subject} className = "textfield" onChange = {handleChange("subject")}  />
               <div className = "helperDiv2">
-        <Typography>Enter the general area of study (eg. Computer Science, Biology)</Typography>
+       Enter the general area of study (eg. Computer Science, Biology)
+       <ArrowLeftIcon fontSize = "large" color = "primary" className = "iconsArrow"></ArrowLeftIcon>
               </div>
               </div>
               <div className = "titleContainer3"> 
               <Typography className = "Typography" variant = "h6">
                 Specific field
             </Typography>
-              <TextField multiline rows ={4} maxWidth margin = "dense" id = "outlined-basic" label="Sub-Subjects" variant="filled" defaultValue = {values.subSubjects} className = "textfield" onChange = {handleChange("subSubjects")}  />
+              <TextField multiline rows ={4}  margin = "dense" id = "outlined-basic" label="Sub-Subjects" variant="outlined" defaultValue = {values.subSubjects} className = "textfield" onChange = {handleChange("subSubjects")}  />
               <div className = "helperDiv3">
-        <Typography>Enter the specific field of study if applicable (eg. Number theory)</Typography>
+        Enter the specific field of study if applicable (eg. Number theory)
+        <ArrowLeftIcon fontSize = "large" color = "primary" className = "iconsArrow"></ArrowLeftIcon>
               </div>
               </div>
              
@@ -80,7 +86,7 @@ import { Typography } from '@material-ui/core';
              <Button
          
          label="Continue"
-         color = "primary"
+         color = "default"
          variant = "contained"
          onClick={this.continue}
          id = "buttonsForm1"
