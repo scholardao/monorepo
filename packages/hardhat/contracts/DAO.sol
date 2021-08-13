@@ -8,8 +8,9 @@ import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/token/ERC721/IERC721.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
+import "@chainlink/contracts/src/v0.6/ChainlinkClient.sol";
 
-contract DAO {
+contract DAO is ChainlinkClient{
     enum PublicationStage {
         Draft,
         Preprint,
