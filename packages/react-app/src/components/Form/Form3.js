@@ -59,9 +59,13 @@ handleUpload = e =>{
 <form  className = "else" onSubmit ={this.formSubmitHandler} noValidate autoComplete="off">
         <div className = "formpt1" >
                <div className = "filler"></div>
-                    <Typography gutterBottom variant="h4" >Submit a paper</Typography>
+               <Typography gutterBottom variant="h4" className = "mainTitle">What paper are you working on right now?</Typography>
+                    <Typography variant = "h6" className = "mainTitle2">
+                  Add your current paper and we will help publish it
+                    </Typography>
+                   
             
-                    <div >
+                    <div className = "titleContainer8">
                       
             <Typography className = "Typography" variant = "h6">
                 Please submit a list of papers cited (copy and paste)
@@ -80,7 +84,7 @@ handleUpload = e =>{
         
         
               <div >
-              <Typography  variant = "h6">
+              <Typography className = "uploadLabel"  variant = "h6">
                 Upload your paper (.pdf)
             </Typography>
             
@@ -93,8 +97,8 @@ handleUpload = e =>{
         id="contained-button-file"
       />
       {this.state.hiddenFileInput && <Typography>Uploaded</Typography>}
-      <label htmlFor="contained-button-file">
-        <Button variant="contained" color="primary" onClick = {this.handleUpload} component="span">
+      <label htmlFor="contained-button-file" className = "uploadbuttonlabel">
+        <Button variant="contained" color="primary" className = "button3" onClick = {this.handleUpload} component="span">
           Upload
         </Button>
       </label>
@@ -122,7 +126,7 @@ handleUpload = e =>{
               <Button
               variant = "contained"
               color="secondary"
-         className = "button2"
+         id = "button2"
           label="Submit"
           onClick={this.continue}
         >

@@ -7,7 +7,7 @@ import { About } from "./components/about";
 import './Homestyles.css'
 import { Team } from "./components/Team";
 import { Contact } from "./components/contact";
-import Jsondata from './Homedata/homedata.json'
+import JsonData from './Homedata/homedata.json'
 import SmoothScroll from "smooth-scroll";
 
 
