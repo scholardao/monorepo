@@ -1,9 +1,10 @@
-pragma solidity >=0.8.0 <0.9.0;
+pragma solidity >=0.6.0 <0.9.0;
+pragma experimental ABIEncoderV2;
+
 // SPDX-License-Identifier: MIT
 
 import "hardhat/console.sol";
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
-import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/token/ERC721/IERC721.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
@@ -75,6 +76,10 @@ contract DAO {
         ReviewerDecision reviewerDecision;
         string commentsCid;
     }
+    
+    address oracle = 0x3A56aE4a2831C3d3514b5D7Af5578E45eBDb7a40;
+    uint256 fee = 0.1 * 10 ** 18;
+    bool public data;
     mapping(uint256 => PaperStruct) public paperById;
     mapping(address => Scholar) public scholarByAddress;
     mapping(address => Validator) public validatorByAddress;
@@ -116,7 +121,7 @@ contract DAO {
         uint256 _deadline
     );
 
-    constructor() {
+    constructor() public {
         fields = [
             "Computer Science",
             "Mathematics",
@@ -143,7 +148,27 @@ contract DAO {
             "Software engineering"
         ];
     }
-
+    
+    function addressToString(address _address) public pure returns (string memory _uintAsString) {
+          uint _i = uint256(_address);
+          if (_i == 0) {
+              return "0";
+          }
+          uint j = _i;
+          uint len;
+          while (j != 0) {
+              len++;
+              j /= 10;
+          }
+          bytes memory bstr = new bytes(len);
+          uint k = len - 1;
+          while (_i != 0) {
+              bstr[k--] = byte(uint8(48 + _i % 10));
+              _i /= 10;
+          }
+          return string(bstr);
+     }
+        
     function verifyScholarProfile(
         string memory _name,
         string[] memory _fields,
@@ -152,8 +177,8 @@ contract DAO {
     ) public returns (bool) {
         require(!isVerifiedScholar[msg.sender], "already verified");
         // check if LINK was sent as gas
-        // send request to chainlink oracle with tweet url and msg.sender
-        // returns verified or not
+        chainlinkVerifier(_tweetUrl, addressToString(msg.sender));
+        require(done.toString()== "true" , 'not verified');
         Scholar memory s = Scholar(
             payable(msg.sender),
             _name,
@@ -177,8 +202,8 @@ contract DAO {
     ) public payable returns (bool) {
         require(!isValidator[msg.sender], "already verified");
         // check if LINK was sent as gas
-        // send request to chainlink oracle with tweet url and msg.sender
-        // returns verified or not
+        chainlinkVerifier(_tweetUrl, addressToString(msg.sender));
+        require(done.toString()== "true" , 'not verified');
         Validator memory v = Validator(
             payable(msg.sender),
             _name,
@@ -197,4 +222,16 @@ contract DAO {
     ) public view returns (PaperStruct memory){
     return paperById[_tokenId];
     }
+    
+    function chainlinkVerifier (string memory _tweetUrl, string memory _ethaddress) public returns(bytes32 requestId){
+      Chainlink.Request memory req = buildChainlinkRequest("7a3192ceaf8b49f6983ef904de242637", address(this), this.fulfill.selector);
+      req.add("tweeid", _tweetUrl);
+      req.add("ethaddress", _ethaddress);
+      return requestId= sendChainlinkRequestTo(oracle, req, fee);
+    }
+    
+    function fulfill (bytes32 _requestId, bool _data) public
+    recordChainlinkFulfillment(_requestId){
+      data= _data;
+    }    
 }
