@@ -98,7 +98,7 @@ handleUpload = e =>{
       />
       {this.state.hiddenFileInput && <Typography>Uploaded</Typography>}
       <label htmlFor="contained-button-file" className = "uploadbuttonlabel">
-        <Button variant="contained" color="primary" className = "button3" onClick = {this.handleUpload} component="span">
+        <Button variant="contained" color="default" className = "button3" onClick = {this.handleUpload} component="span">
           Upload
         </Button>
       </label>
@@ -125,7 +125,7 @@ handleUpload = e =>{
               </div>
               <Button
               variant = "contained"
-              color="secondary"
+              color="primary"
          id = "button2"
           label="Submit"
           onClick={this.continue}
