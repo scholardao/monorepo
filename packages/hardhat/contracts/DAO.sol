@@ -79,7 +79,7 @@ contract DAO is ChainlinkClient{
     }
     
     address oracle = 0x3A56aE4a2831C3d3514b5D7Af5578E45eBDb7a40;
-    uint256 fee = 0.1 * 10 ** 18;
+    uint256 fee = 1 * LINK;
     bool public data;
     mapping(uint256 => PaperStruct) public paperById;
     mapping(address => Scholar) public scholarByAddress;
@@ -123,6 +123,7 @@ contract DAO is ChainlinkClient{
     );
 
     constructor() public {
+        setPublicChainlinkToken();
         fields = [
             "Computer Science",
             "Mathematics",
