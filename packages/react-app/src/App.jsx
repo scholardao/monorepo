@@ -7,7 +7,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import { BrowserRouter, Link, Route, Switch } from "react-router-dom";
 import Web3Modal from "web3modal";
 import "./App.css";
-import { Account, Contract, Faucet, GasGauge, Header, Ramp, ThemeSwitch } from "./components";
+
 import { INFURA_ID, NETWORK, NETWORKS } from "./constants";
 import { Transactor } from "./helpers";
 import {
@@ -21,10 +21,13 @@ import {
   useUserSigner,
 } from "./hooks";
 // import Hints from "./Hints";
+import Test from './components/Test.js'
 import { ExampleUI, Hints, Subgraph } from "./views";
 import AuthorPage from "./components/HackFS/AuthorPage";
 import MainPage from "./components/HackFS/MainPage";
 import PaperDetails from "./components/HackFS/PaperDetails"
+import Uploadform from "./components/Uploadform";
+import Home from "./Home";
 
 
 const paper_contract = require("./contracts/paper_contracts")
@@ -188,20 +191,28 @@ function App(props) {
       <BrowserRouter>
 
       <Switch>
-        <Route exact path="/author">
+        <Route exact path="/dashboard/author">
         <AuthorPage 
         readContracts={readContracts}
         />        
         </Route>
-        <Route exact path="/main">
+        <Route exact path="/dashboard/main">
         <MainPage readContracts={readContracts}/>
         </Route>
-        <Route exact path="/papers/1">
+        <Route exact path="/dashboard/papers/1">
           <PaperDetails title="haha"></PaperDetails>
         </Route>
+    <Route path = "/upload">
+    <Uploadform />
+    </Route>
+    <Route exact path = '/'>
+      <Home></Home>
+    </Route>
       </Switch>
       </BrowserRouter>
     </div>
+
+      
   );
 }
 
