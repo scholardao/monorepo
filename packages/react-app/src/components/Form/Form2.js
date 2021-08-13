@@ -52,7 +52,7 @@ render(){
               {/* <div className = "helperDiv1">
         <Typography>Fill in the full name of the authors</Typography>
               </div> */}
-             
+                 <AddIcon onClick = {this.onemore} fontSize = "large" className = "addicon"></AddIcon>
               </Container>
         
         
@@ -64,14 +64,15 @@ render(){
               {/* <TextField margin = "dense" id = "outlined-basic" label="Validator tip" variant="filled" value = {Subject} className = "textfield" onChange = {handleInputChangeSubject}  />
               <TextField margin = "dense" id = "outlined-basic" label="Validator tip" variant="filled" value = {Subject} className = "textfield" onChange = {handleInputChangeSubject}  /> */}
 
-              <AddIcon onClick = {this.onemore} fontSize = "large" className = "addicon"></AddIcon>
+          
               
               <div className = "helperDiv1">
         <Typography gutterBottom variant="h8">Please enter a number between 0 and 1<br></br>
             Default is 0.2
         </Typography>
+        </div>
         <TextField  margin = "dense" id = "outlined-basic" label="Validator addresses" variant="filled" defaultValue = {values.validatorAddresses} className = "textfield" onChange = {handleChange("validatorTip")}  />
-              </div>
+              
               </Container>
               <Button
          
