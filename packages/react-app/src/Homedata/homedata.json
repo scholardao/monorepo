@@ -1,0 +1,64 @@
+{
+    "Header": {
+      "title": "This is Scholar DAO",
+      "paragraph": "We make the scientific peer reviewing system trustless, verifiable and most of all less f*cked up"
+    },
+    "About": {
+      "paragraph": "Operating on the Ethereum Blockchain, we provide an incentive system that allows any researcher to get their paper reviewed and published. "
+      
+    },
+    
+    "Team": [
+      {
+        "img": "img/team/01.jpg",
+        "name": "Rajdeep Bharati",
+        "job": "Director"
+      },
+      {
+        "img": "img/team/02.jpg",
+        "name": "Mike Doe",
+        "job": "Senior Designer"
+      },
+      {
+        "img": "img/team/03.jpg",
+        "name": "Jane Doe",
+        "job": "Senior Designer"
+      },
+      {
+        "img": "img/team/04.jpg",
+        "name": "Karen Doe",
+        "job": "Project Manager"
+      }
+    ],
+    "Contact": {
+      "address": "4321 California St, San Francisco, CA 12345 ",
+      "phone": "+1 123 456 1234",
+      "email": "info@company.com",
+      "facebook": "fb.com",
+      "twitter": "twitter.com",
+      "youtube": "youtube.com"
+    },
+    "Features": [
+      {
+        "icon": "fa fa-comments-o",
+        "title": "TRUSTLESS",
+        "text": "All our reviews and validators are anonymous and our incentive system is crafted to publish honest research."
+      },
+      {
+        "icon": "fa fa-bullhorn",
+        "title": "DECENTRALIZED",
+        "text": "As a DAO, we cant mutate the results of any paper. No central authority except code governs the protocol"
+      },
+      {
+        "icon": "fa fa-group",
+        "title": "DIRECTED EXPERTISE",
+        "text": "Expertise in very specific domains is available to all researchers."
+      },
+      {
+        "icon": "fa fa-magic",
+        "title": "NO MORE PRESTIGE",
+        "text": "Through our protocol, we remove the need for prestige and social standing to get accurate reviews"
+      }
+    ]
+  }
+  

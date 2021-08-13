@@ -59,9 +59,9 @@ handleUpload = e =>{
 <form  className = "else" onSubmit ={this.formSubmitHandler} noValidate autoComplete="off">
         <div className = "formpt1" >
                <div className = "filler"></div>
-                    <Typography gutterBottom variant="h4" className = "mainTitle">Submit a paper</Typography>
+                    <Typography gutterBottom variant="h4" >Submit a paper</Typography>
             
-                    <Container className = "titleContainer5" >
+                    <div >
                       
             <Typography className = "Typography" variant = "h6">
                 Please submit a list of papers cited (copy and paste)
@@ -71,16 +71,16 @@ handleUpload = e =>{
           multiline
           rows={10}
           defaultValue="Default Value"
-          variant="outlined" defaultValue = {values.papersCited} className = "textfield" onChange = {handleChange("papersCited")}  />
+          variant="outlined" defaultValue = {values.papersCited}  onChange = {handleChange("papersCited")}  />
               <div className = "helperDiv">
         <Typography>Please make sure they are each on separate lines</Typography>
               </div>
              
-              </Container>
+              </div>
         
         
-              <Container className = "titleContainer4">
-              <Typography className = "Typography" variant = "h6">
+              <div >
+              <Typography  variant = "h6">
                 Upload your paper (.pdf)
             </Typography>
             
@@ -118,7 +118,7 @@ handleUpload = e =>{
               {/* <div className = "helperDiv">
         <Typography>Upload the paper as a pdf file</Typography>
               </div> */}
-              </Container>
+              </div>
               <Button
               variant = "contained"
               color="secondary"
