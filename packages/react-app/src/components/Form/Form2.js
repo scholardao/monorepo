@@ -36,9 +36,14 @@ render(){
 <form  className = "else"  noValidate autoComplete="off">
         <div className = "formpt1" >
                <div className = "filler"></div>
-                    <Typography gutterBottom variant="h4" className = "mainTitle">Submit a paper</Typography>
-            
-                    <Container className = "titleContainer4" >
+               <Typography gutterBottom variant="h4" className = "mainTitle">What paper are you working on right now?</Typography>
+                    <Typography variant = "h6" className = "mainTitle2">
+                  Add your current paper and we will help publish it
+                    </Typography>
+                   
+                      
+          
+                    <div className = "titleContainer4" >
                       
             <Typography className = "Typography" variant = "h6">
                 Who worked on this paper with you?
@@ -49,16 +54,17 @@ render(){
              {this.state.count >= 4 && <TextField  margin = "dense" id="filled-basic" label="Author 4" variant="filled" value = {values.authors4} className = "textfield" onChange = {handleChange("authors4")}  />} 
               {this.state.count >= 5 && <TextField  margin = "dense" id="filled-basic" label="Author 5" variant="filled" value = {values.authors5} className = "textfield" onChange = {handleChange("authors5")}  />}
               
-              {/* <div className = "helperDiv1">
-        <Typography>Fill in the full name of the authors</Typography>
-              </div> */}
+              <div className = "helperDiv4">
+        Fill in the full name of the authors (maximum 5)
+              </div>
                  <AddIcon onClick = {this.onemore} fontSize = "large" className = "addicon"></AddIcon>
-              </Container>
+              </div>
         
         
-              <Container className = "titleContainer5">
+             <div className = "titleContainer5">
+               
               <Typography className = "Typography" variant = "h6">
-               Specify the validator tip (ETH)
+               Specify the validator tip and addresses (ETH)
             </Typography>
               <TextField  margin = "dense" id = "outlined-basic" label="Validator tip" variant="filled" defaultValue = {values.validatorTip} className = "textfield" onChange = {handleChange("validatorTip")}  />
               {/* <TextField margin = "dense" id = "outlined-basic" label="Validator tip" variant="filled" value = {Subject} className = "textfield" onChange = {handleInputChangeSubject}  />
@@ -66,16 +72,21 @@ render(){
 
           
               
-              <div className = "helperDiv1">
-        <Typography gutterBottom variant="h8">Please enter a number between 0 and 1<br></br>
+              <div className = "helperDiv5">
+       Please enter a number between 0 and 1<br></br>
             Default is 0.2
-        </Typography>
+        
         </div>
+       </div>
+       <div className = "titleContainer6">
         <TextField  margin = "dense" id = "outlined-basic" label="Validator addresses" variant="filled" defaultValue = {values.validatorAddresses} className = "textfield" onChange = {handleChange("validatorTip")}  />
               
-              </Container>
+              </div>
+              
               <Button
-         
+         id = "buttonsForm2"
+         color = "default"
+         variant = "contained"
          label="Submit"
          onClick={this.continue}
        >
