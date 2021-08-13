@@ -924,15 +924,11 @@ function Web3stuff(titleString,IPFSlink,subject,subSubjects,papersCited,validato
       
   ));
 }
-//get renewed ABI
-//check data being passed
 
 
 
-const useStyles = makeStyles((theme)=>({
-  
-      }))
-    
+
+
     
   
     async function makeFileObjects(input){
@@ -955,7 +951,7 @@ const useStyles = makeStyles((theme)=>({
        
 
         function getAccessToken(){
-            return(process.env.API_TOKEN)
+            return('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweGYwNTE5NUFBOWU3MUQzMmUxNDRGODhEM2MyYjVlNTVENDg2YzRhNEIiLCJpc3MiOiJ3ZWIzLXN0b3JhZ2UiLCJpYXQiOjE2Mjg0MzEwNDA3NzksIm5hbWUiOiJTaGVldGFsQ29kZXMifQ.c-V4d1lQycfu6hyjRNyzSD50xZWoTtUF_qgTg1j2H_s')
         }
         function makeStorageClient(){
             return new Web3Storage({token : getAccessToken()})
@@ -965,16 +961,18 @@ const useStyles = makeStyles((theme)=>({
       
        
 function executeEthers(holdValues){
-console.log(holdValues)
-console.log('above is the main stuff!')
 
+  let subject = []
+  let subSubjects = []
 const titleString = holdValues.title
 const IPFSlink = holdValues.IPFSlink
-const subject = holdValues.subject
-const subSubjects=holdValues.subSubjects
+ subject.push(holdValues.subject) 
+ subSubjects.push(holdValues.subSubjects)
 const papersCited = holdValues.papersCited
 const validatorTip = 0
 const validatorAddresses = []
+
+console.log(` Subject:${subject} + subSubjects:${subSubjects} + papersCited:${papersCited} + validatorTip:${validatorTip} + validatorAddresses:${validatorAddresses}`)
 
 Web3stuff(titleString,IPFSlink,subject,subSubjects,papersCited,validatorTip,validatorAddresses)
 }
@@ -990,6 +988,30 @@ const holdValues = {
      validatorAddresses:['']
 }
 class Uploadform extends Component{
+   DoStuff = values =>{
+    makeFileObjects(values.uploadedPaper).then((uploadedPaperObject)=>{
+      storeFiles(uploadedPaperObject).then((cid)=>{
+        this.state.IPFSlink = cid
+      })
+        holdValues.title = this.state.title
+        holdValues.authors[0] =this.state.author1 
+        holdValues.authors[2]=this.state.authors3
+        holdValues.authors[1] = this.state.author2
+        holdValues.authors[3] =this.state.author4
+        holdValues.authors[4]= this.state.author5
+       const fullIPFSlink = `ipfs://${this.state.IPFSlink}`
+      
+        holdValues.IPFSlink = fullIPFSlink
+        
+          holdValues.subject = this.state.subject
+      holdValues.subSubjects = this.state.subSubjects
+       
+        holdValues.validatorTip=this.state.validatorTip
+        holdValues.validatorAddresses = this.state.validatorAddresses
+       
+    executeEthers(holdValues);
+    })
+  }
    
  state ={
      step:1,
@@ -1020,25 +1042,15 @@ handleFile = input =>{
     this.setState({
         step:step+1
     })
+    
 }
 
 handleChange = input =>e=>{
-  const authorsArray = ['','']
+ 
     
-    if(input == "authors"){
-      console.log('doing author stuff')
-      authorsArray.push(e.target.value)
-      authorsArray.map((author)=>{
-        this.setState({
-          authors:author
-        })
-      })
-      
     
-    }
-    else{
       this.setState({[input]:e.target.value})
-    }
+    
    
 }
 handleAuthorsChange = input=>e=>{
@@ -1084,27 +1096,11 @@ handleAuthorsChange = input=>e=>{
          )
      case 4:
       
-      makeFileObjects(values.uploadedPaper).then((uploadedPaperObject)=>{
-        storeFiles(uploadedPaperObject).then((cid)=>{
-          this.state.IPFSlink = cid
-          holdValues.title = this.state.title
-          holdValues.authors[0] =this.state.author1 
-          holdValues.authors[2]=this.state.authors3
-          holdValues.authors[1] = this.state.author2
-          holdValues.authors[3] =this.state.author4
-          holdValues.authors[4]= this.state.author5
-         const fullIPFSlink = `ipfs://${this.state.IPFSlink}`
-          holdValues.IPFSlink = fullIPFSlink
-          holdValues.subject=this.state.subject
-          holdValues.subSubjects=this.state.subSubjects
-          holdValues.papersCited=this.state.papersCited
-          holdValues.validatorTip=this.state.validatorTip
-          holdValues.validatorAddresses.push(this.state.validatorAddresses)
-          
-        }).then(executeEthers(holdValues))
-
-      })
+      const passin = this.state
+        this.DoStuff(passin)
+      
       return(
+        
         <div>
           Finished!!
 

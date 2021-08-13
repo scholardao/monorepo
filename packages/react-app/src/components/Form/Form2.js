@@ -38,7 +38,7 @@ render(){
                <div className = "filler"></div>
                     <Typography gutterBottom variant="h4" className = "mainTitle">Submit a paper</Typography>
             
-                    <Container className = "titleContainer1" >
+                    <Container className = "titleContainer4" >
                       
             <Typography className = "Typography" variant = "h6">
                 Who worked on this paper with you?
@@ -56,7 +56,7 @@ render(){
               </Container>
         
         
-              <Container className = "titleContainer3">
+              <Container className = "titleContainer5">
               <Typography className = "Typography" variant = "h6">
                Specify the validator tip (ETH)
             </Typography>

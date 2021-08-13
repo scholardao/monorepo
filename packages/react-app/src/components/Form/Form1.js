@@ -41,43 +41,52 @@ import { Typography } from '@material-ui/core';
                <div className = "filler"></div>
                     <Typography gutterBottom variant="h4" className = "mainTitle">Submit a paper</Typography>
             
-                    <Container className = "titleContainer1" >
+                    <div className = "titleContainer1" >
                       
             <Typography className = "Typography" variant = "h6">
                 What is your paper's title?
             </Typography>
-              <TextField margin = "dense" id="filled-basic" label="Title" variant="filled" defaultValue = {values.title} className = "textfield" onChange = {handleChange("title")}  />
-              <div className = "helperDiv">
+              <TextField  margin = "dense" id="filled-basic" label="Title" variant="filled" defaultValue = {values.title} className = "textfield" onChange = {handleChange("title")}  />
+              <div className = "helperDiv1">
         <Typography>A short concise title is best</Typography>
               </div>
              
-              </Container>
+              </div>
         
         
-              <Container className = "titleContainer2">
+              <div className = "titleContainer2">
               <Typography className = "Typography" variant = "h6">
                 What is your paper's subject?
             </Typography>
-              <TextField margin = "dense" id = "outlined-basic" label="Subject" variant="filled" defaultValue = {values.subject} className = "textfield" onChange = {handleChange("subject")}  />
-              <div className = "helperDiv">
-        <Typography>Enter the general area of study</Typography>
+              <TextField maxWidth margin = "dense" id = "outlined-basic" label="Subject" variant="filled" defaultValue = {values.subject} className = "textfield" onChange = {handleChange("subject")}  />
+              <div className = "helperDiv2">
+        <Typography>Enter the general area of study (eg. Computer Science, Biology)</Typography>
               </div>
-              <TextField margin = "dense" id = "outlined-basic" label="Sub-Subjects" variant="filled" defaultValue = {values.subSubjects} className = "textfield" onChange = {handleChange("subSubjects")}  />
-              <div className = "helperDiv">
-        <Typography>Enter the specific subject</Typography>
               </div>
-              </Container>
-              <Button
-         
-          label="Continue"
-          onClick={this.continue}
-        >
-          Continue
-        </Button>
+              <div className = "titleContainer3"> 
+              <Typography className = "Typography" variant = "h6">
+                Specific field
+            </Typography>
+              <TextField multiline rows ={4} maxWidth margin = "dense" id = "outlined-basic" label="Sub-Subjects" variant="filled" defaultValue = {values.subSubjects} className = "textfield" onChange = {handleChange("subSubjects")}  />
+              <div className = "helperDiv3">
+        <Typography>Enter the specific field of study if applicable (eg. Number theory)</Typography>
+              </div>
+              </div>
+             
                   
    
                 
              </div>
+             <Button
+         
+         label="Continue"
+         color = "primary"
+         variant = "contained"
+         onClick={this.continue}
+         id = "buttonsForm1"
+       >
+         Continue
+       </Button>
             </form>     
 
           )

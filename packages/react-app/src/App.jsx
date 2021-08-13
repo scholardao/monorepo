@@ -7,7 +7,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import { BrowserRouter, Link, Route, Switch } from "react-router-dom";
 import Web3Modal from "web3modal";
 import "./App.css";
-import { Account, Contract, Faucet, GasGauge, Header, Ramp, ThemeSwitch } from "./components";
+
 import { INFURA_ID, NETWORK, NETWORKS } from "./constants";
 import { Transactor } from "./helpers";
 import {
@@ -21,8 +21,10 @@ import {
   useUserSigner,
 } from "./hooks";
 // import Hints from "./Hints";
+import Test from './components/Test.js'
 import { ExampleUI, Hints, Subgraph } from "./views";
 import Uploadform from "./components/Uploadform";
+import Home from "./Home";
 
 const { ethers } = require("ethers");
 /*
@@ -349,177 +351,25 @@ function App(props) {
 
   return (
     <div className="App">
-      {/* ✏️ Edit the header and change the title to your project name */}
-      <Header />
-      {/* {networkDisplay} */}
-      <BrowserRouter>
-        <Menu style={{ textAlign: "center" }} selectedKeys={[route]} mode="horizontal">
-          <Menu.Item key="/">
-            <Link
-              onClick={() => {
-                setRoute("/");
-              }}
-              to="/"
-            >
-              Home
-            </Link>
-          </Menu.Item>
-          <Menu.Item key="/marketplace">
-            <Link
-              onClick={() => {
-                setRoute("/marketplace");
-              }}
-              to="/marketplace"
-            >
-              Marketplace
-            </Link>
-          </Menu.Item>
-          <Menu.Item key="/validators">
-            <Link
-              onClick={() => {
-                setRoute("/validators");
-              }}
-              to="/validators"
-            >
-              Validators
-            </Link>
-          </Menu.Item>
-          <Menu.Item key="/upload">
-            <Link
-              onClick={() => {
-                setRoute("/upload");
-              }}
-              to="/upload"
-            >
-              Upload
-            </Link>
-          </Menu.Item>
-          {/* <Menu.Item key="/subgraph">
-            <Link
-              onClick={() => {
-                setRoute("/subgraph");
-              }}
-              to="/subgraph"
-            >
-              Subgraph
-            </Link>
-          </Menu.Item>  */}
-        </Menu>
-
-        <Switch>
-          <Route exact path="/">
-            
-          <div>
-            Home
-          </div>
-            {/* <Contract
-              name="YourContract"
-              signer={userSigner}
-              provider={localProvider}
-              address={address}
-              blockExplorer={blockExplorer}
-            /> */}
-          </Route>
-          <Route path="/marketplace">
-            <div>
-              Marketplace
-            </div>
-            <Hints
-           
-            />
-          </Route>
-          <Route path="/validators">
-            <div>
-              Validators
-            </div>
-            {/* <ExampleUI
-              address={address}
-              userSigner={userSigner}
-              mainnetProvider={mainnetProvider}
-              localProvider={localProvider}
-              yourLocalBalance={yourLocalBalance}
-              price={price}
-              tx={tx}
-              writeContracts={writeContracts}
-              readContracts={readContracts}
-              purpose={purpose}
-              setPurposeEvents={setPurposeEvents}
-            /> */}
-          </Route>
-          <Route path="/upload">
-       <Uploadform></Uploadform>
-        
-           
-          </Route> 
-          {/* <Route path="/subgraph">
-            <Subgraph
-              subgraphUri={props.subgraphUri}
-              tx={tx}
-              writeContracts={writeContracts}
-              mainnetProvider={mainnetProvider}
-            />
-          </Route> */}
-        </Switch>
-      </BrowserRouter>
-
-      <ThemeSwitch />
-
-      {/* 👨‍💼 Your account is in the top right with a wallet at connect options */}
-      <div style={{ position: "fixed", textAlign: "right", right: 0, top: 0, padding: 10 }}>
-        <Account
-          address={address}
-          localProvider={localProvider}
-          userSigner={userSigner}
-          mainnetProvider={mainnetProvider}
-          price={price}
-          web3Modal={web3Modal}
-          loadWeb3Modal={loadWeb3Modal}
-          logoutOfWeb3Modal={logoutOfWeb3Modal}
-          blockExplorer={blockExplorer}
-        />
-        {/* {faucetHint} */}
-      </div>
-
-      {/* 🗺 Extra UI like gas price, eth price, faucet, and support: */}
-      <div style={{ position: "fixed", textAlign: "left", left: 0, bottom: 20, padding: 10 }}>
-        {/* <Row align="middle" gutter={[4, 4]}>
-          <Col span={8}>
-            <Ramp price={price} address={address} networks={NETWORKS} />
-          </Col>
-
-          <Col span={8} style={{ textAlign: "center", opacity: 0.8 }}>
-            <GasGauge gasPrice={gasPrice} />
-          </Col>
-          <Col span={8} style={{ textAlign: "center", opacity: 1 }}>
-            <Button
-              onClick={() => {
-                window.open("https://t.me/joinchat/KByvmRe5wkR-8F_zz6AjpA");
-              }}
-              size="large"
-              shape="round"
-            >
-              <span style={{ marginRight: 8 }} role="img" aria-label="support">
-                💬
-              </span>
-              Support
-            </Button>
-          </Col>
-        </Row> */}
-
-        {/* <Row align="middle" gutter={[4, 4]}>
-          <Col span={24}>
-            {
-              
-              faucetAvailable ? (
-                <Faucet localProvider={localProvider} price={price} ensProvider={mainnetProvider} />
-              ) : (
-                ""
-              )
-            }
-          </Col>
-        </Row> */}
-      </div>
-    </div>
+    {/* ✏️ Edit the header and change the title to your project name */}
+    {/* <Header /> */}
+    <BrowserRouter>
+    <Switch>
+      <Route exact path = '/dashboard'>
+      <Test />
+      </Route>
+    <Route path = "/upload">
+    <Uploadform />
+    </Route>
+    <Route exact path = '/'>
+      <Home></Home>
+    </Route>
+    </Switch>
+      
+   
+    </BrowserRouter>
+  </div>
+      
   );
 }
 
