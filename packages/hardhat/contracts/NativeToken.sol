@@ -9,7 +9,7 @@ contract SCH is ERC20 {
     uint256 public year;
     uint256 public supply;
 
-    constructor(uint256 _supply) ERC20("ScholarDAO Token", "SCH") {
+    constructor(uint256 _supply) ERC20("ScholarDAO Token", "SCH") public{
         deploymentTime = block.timestamp;
         year = 0;
         supply = _supply;
