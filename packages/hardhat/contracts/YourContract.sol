@@ -1,4 +1,4 @@
-pragma solidity >=0.8.0 <0.9.0;
+pragma solidity >=0.6.0 <0.9.0;
 // SPDX-License-Identifier: MIT
 
 import "hardhat/console.sol";
@@ -10,7 +10,7 @@ contract YourContract {
 
     string public purpose = "Building Unstoppable Apps";
 
-    constructor() {
+    constructor() public {
         // what should we do on deploy?
     }
 

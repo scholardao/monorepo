@@ -180,7 +180,7 @@ contract DAO is ChainlinkClient{
         require(!isVerifiedScholar[msg.sender], "already verified");
         // check if LINK was sent as gas
         chainlinkVerifier(_tweetUrl, addressToString(msg.sender));
-        require(done.toString()== "true" , 'not verified');
+        // require(done.toString()== "true" , 'not verified');
         Scholar memory s = Scholar(
             payable(msg.sender),
             _name,
@@ -205,7 +205,7 @@ contract DAO is ChainlinkClient{
         require(!isValidator[msg.sender], "already verified");
         // check if LINK was sent as gas
         chainlinkVerifier(_tweetUrl, addressToString(msg.sender));
-        require(done.toString()== "true" , 'not verified');
+        // require(done.toString()== "true" , 'not verified');
         Validator memory v = Validator(
             payable(msg.sender),
             _name,
@@ -227,9 +227,10 @@ contract DAO is ChainlinkClient{
     
     function chainlinkVerifier (string memory _tweetUrl, string memory _ethaddress) public returns(bytes32 requestId){
       Chainlink.Request memory req = buildChainlinkRequest("7a3192ceaf8b49f6983ef904de242637", address(this), this.fulfill.selector);
-      req.add("tweeid", _tweetUrl);
+      req.add("tweetid", _tweetUrl);
       req.add("ethaddress", _ethaddress);
-      return requestId= sendChainlinkRequestTo(oracle, req, fee);
+      requestId= sendChainlinkRequestTo(oracle, req, fee);
+      return requestId;
     }
     
     function fulfill (bytes32 _requestId, bool _data) public
