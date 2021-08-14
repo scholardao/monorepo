@@ -37,78 +37,66 @@ export class Form3 extends Component {
       fileInput: "",
       disabled: false,
     };
-    
-      handleClick = event => {
-        this.setState({hiddenFileInput:true})
-      };
-    continue = e => {
-        e.preventDefault();
-        this.props.goNextPage();
-      };
+  }
 
-    formSubmitHandler = e =>{
-        e.preventDefault()
-    }
+  render() {
+    const { values, handleChange } = this.props;
+    return (
+      <form className="else" onSubmit={this.formSubmitHandler} noValidate autoComplete="off">
+        <div className="formpt1">
+          <div className="filler"></div>
+          <Typography gutterBottom variant="h4" className="mainTitle">
+            What paper are you working on right now?
+          </Typography>
+          <Typography variant="h6" className="mainTitle2">
+            Add your current paper and we will help publish it
+          </Typography>
 
-      constructor() {
-        super();
-        this.state = {
-         hiddenFileInput: false,
-          fileInput:'',
-          disabled: false
-        };
-      }
-
-      render(){
-          const {values,handleChange} = this.props;
-          return(
-<form  className = "else" onSubmit ={this.formSubmitHandler} noValidate autoComplete="off">
-        <div className = "formpt1" >
-               <div className = "filler"></div>
-               <Typography gutterBottom variant="h4" className = "mainTitle">What paper are you working on right now?</Typography>
-                    <Typography variant = "h6" className = "mainTitle2">
-                  Add your current paper and we will help publish it
-                    </Typography>
-                   
-            
-                    <div className = "titleContainer8">
-                      
-            <Typography className = "Typography" variant = "h6">
-                Please submit a list of papers cited (copy and paste)
+          <div className="titleContainer8">
+            <Typography className="Typography" variant="h6">
+              Please submit a list of papers cited (copy and paste)
             </Typography>
-              <TextField  id="outlined-multiline-static"
-          label="Citations"
-          multiline
-          rows={10}
-          defaultValue="Default Value"
-          variant="outlined" defaultValue = {values.papersCited}  onChange = {handleChange("papersCited")}  />
-              <div className = "helperDiv">
-        <Typography>Please make sure they are each on separate lines</Typography>
-              </div>
-             
-              </div>
-        
-        
-              <div >
-              <Typography className = "uploadLabel"  variant = "h6">
-                Upload your paper (.pdf)
+            <TextField
+              id="outlined-multiline-static"
+              label="Citations"
+              multiline
+              rows={10}
+              defaultValue="Default Value"
+              variant="outlined"
+              defaultValue={values.papersCited}
+              onChange={handleChange("papersCited")}
+            />
+            <div className="helperDiv">
+              <Typography>Please make sure they are each on separate lines</Typography>
+            </div>
+          </div>
+
+          <div>
+            <Typography className="uploadLabel" variant="h6">
+              Upload your paper (.pdf)
             </Typography>
-            
-     <div>
-     <input
-     onChange={this.handleChange}
-        type="file"
-        accept="image/*"
-        style={{ display: 'none' }}
-        id="contained-button-file"
-      />
-      {this.state.hiddenFileInput && <Typography>Uploaded</Typography>}
-      <label htmlFor="contained-button-file" className = "uploadbuttonlabel">
-        <Button variant="contained" color="default" className = "button3" onClick = {this.handleUpload} component="span">
-          Upload
-        </Button>
-      </label>
-     {/* <input
+
+            <div>
+              <input
+                onChange={this.handleChange}
+                type="file"
+                accept="image/*"
+                style={{ display: "none" }}
+                id="contained-button-file"
+              />
+              {this.state.hiddenFileInput && <Typography>Uploaded</Typography>}
+              <label htmlFor="contained-button-file" className="uploadbuttonlabel">
+                <Button
+                  variant="contained"
+                  color="default"
+                  className="button3"
+                  onClick={this.handleUpload}
+                  component="span"
+                >
+                  Upload
+                </Button>
+              </label>
+              {/* <input
       
       type="file"
       id = "file"
@@ -124,9 +112,8 @@ export class Form3 extends Component {
             {/* <div className = "helperDiv">
         <Typography>Upload the paper as a pdf file</Typography>
               </div> */}
-<<<<<<< HEAD
           </div>
-          <Button variant="contained" color="secondary" className="button2" label="Submit" onClick={this.continue}>
+          <Button variant="contained" color="primary" id="button2" label="Submit" onClick={this.continue}>
             Submit
           </Button>
         </div>
@@ -134,26 +121,5 @@ export class Form3 extends Component {
     );
   }
 }
-=======
-              </div>
-              <Button
-              variant = "contained"
-              color="primary"
-         id = "button2"
-          label="Submit"
-          onClick={this.continue}
-        >
-          Submit
-        </Button>
-                  
-  
-                
-             </div>
-            </form>     
-
-          )
-      }
-    } 
->>>>>>> aryajfrontend
 
 export default Form3;

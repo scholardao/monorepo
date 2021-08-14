@@ -46,7 +46,7 @@ export default function NavBar() {
           </Grid>
         </Grid>
         <List component={Grid} container>
-          <ListItem button component="a" href="/a" className={classes.drawerSection}>
+          <ListItem button component="a" href="/app/papers" className={classes.drawerSection}>
             {/* <img
             style={{ fill: "gray" }}
             src={Logo}
@@ -59,11 +59,11 @@ export default function NavBar() {
           <ListItem
             button
             component="a"
-            href="/a"
+            href="/app/upload"
             // action="/haha"
             className={classes.drawerSection}
           >
-            <ListItemText className={classes.drawerText}>Account Profile</ListItemText>
+            <ListItemText className={classes.drawerText}>Upload a paper</ListItemText>
           </ListItem>
         </List>
       </Grid>

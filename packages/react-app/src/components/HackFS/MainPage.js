@@ -20,7 +20,7 @@ function createData(id, title, authors, submitted, status) {
 }
 export default function MainPage(props) {
   const classes = useStyles();
-  const paperId = useContractReader(props.readContracts, "Paper", "paperId");
+  const paperId = useContractReader(props.readContracts, "Paper", "paperId", 100000);
   let [rows, setRows] = useState([]);
 
   useEffect(async () => {
@@ -30,16 +30,17 @@ export default function MainPage(props) {
       const paper = await props.readContracts["Paper"]["getPaper"](i);
       console.log(i);
       console.log(paper);
-      tempRows.push(
-        createData(
-          i + 1,
-          "Bitcoin Whitepaper",
-          //  paper["title"]
-          paper["author"],
-          "12 May 2020",
-          stages[paper["stage"]],
-        ),
-      );
+      // tempRows.push(
+      //   createData(
+      //     i + 1,
+      //     "Bitcoin Whitepaper",
+      //     //  paper["title"]
+      //     paper["author"],
+      //     "12 May 2020",
+      //     stages[paper["stage"]],
+      //   ),
+      // );
+      tempRows.push(createData(i, paper.title, paper.author, "May 12", stages[paper.stage]));
     }
     setRows(tempRows);
   }, [paperId]);

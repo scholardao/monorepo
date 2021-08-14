@@ -23,13 +23,13 @@ const Home = () => {
 
   return (
     <div>
-      <Navigation />
+      {/* <Navigation /> */}
       <Header data={landingPageData.Header} />
-      <Features data={landingPageData.Features} />
-      <About data={landingPageData.About} />
+      {/* <Features data={landingPageData.Features} /> */}
+      {/* <About data={landingPageData.About} /> */}
 
-      <Team data={landingPageData.Team} />
-      <Contact data={landingPageData.Contact} />
+      {/* <Team data={landingPageData.Team} />
+      <Contact data={landingPageData.Contact} /> */}
     </div>
   );
 };

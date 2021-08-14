@@ -41,9 +41,13 @@ function createData(id, title, authors, submitted, status) {
   return { id, title, authors, submitted, status };
 }
 
-export default function Test(props) {
+export default function Author(props) {
   const classes = useStyles();
   const paperId = useContractReader(props.readContracts, "Paper", "paperId");
+  const scholar = useContractReader(props.readContracts, "Paper", "scholarByAddress", [
+    "0x4deec328d7546873375C771C725c41d4Bb70A79E",
+  ]);
+  console.log(scholar);
   // let [rows, setRows] = useState([]);
   // useEffect(async () => {
   //   console.log(paperId);

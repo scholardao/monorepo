@@ -26,7 +26,8 @@ import { ExampleUI, Hints, Subgraph } from "./views";
 import AuthorPage from "./components/HackFS/AuthorPage";
 import MainPage from "./components/HackFS/MainPage";
 import PaperDetails from "./components/HackFS/PaperDetails"
-import Uploadform from "./components/Uploadform";
+import HOCUploadform from "./components/Uploadform";
+import HOCForm from "./components/HackFS/Form";
 import Home from "./Home";
 
 
@@ -191,19 +192,19 @@ function App(props) {
       <BrowserRouter>
 
       <Switch>
-        <Route exact path="/dashboard/author">
+        <Route exact path="/app/author">
         <AuthorPage 
         readContracts={readContracts}
         />        
         </Route>
-        <Route exact path="/dashboard/main">
+        <Route exact path="/app/papers">
         <MainPage readContracts={readContracts}/>
         </Route>
-        <Route exact path="/dashboard/papers/1">
-          <PaperDetails title="haha"></PaperDetails>
+        <Route path="/app/papers/:id">
+          <PaperDetails title="haha" readContracts={readContracts}></PaperDetails>
         </Route>
-       <Route path = "/upload">
-         <Uploadform />
+       <Route path = "/app/upload">
+         <HOCForm />
        </Route>
       <Route exact path = '/'>
         <Home></Home>

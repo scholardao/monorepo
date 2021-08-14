@@ -46,7 +46,7 @@ export default function PaperDashboard(props) {
             <TableBody>
               {props.rows.map(row => (
                 <TableRow
-                  onClick={() => history.push("/papers/" + row.id)}
+                  onClick={() => history.push("/app/papers/" + row.id)}
                   hover={true}
                   key={row.title}
                   className={classes.tableRow}

@@ -2,7 +2,9 @@ import { Grid, Typography, Paper } from "@material-ui/core";
 import NavBar from "./NavBar";
 import { makeStyles } from "@material-ui/core/styles";
 // import { Web3Storage } from "web3.storage";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { useContractReader } from "../../hooks";
 const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1,
@@ -27,10 +29,32 @@ const useStyles = makeStyles(theme => ({
 //     console.log(`${file.cid}: ${file.name} (${file.size} bytes)`);
 //   }
 // }
-
+let stages = ["Draft", "Preprint", "Published"];
+function arrayToString(array) {
+  let res = "";
+  for (let word of array) {
+    if (!res) res += word;
+    else res += ", " + word;
+  }
+  return res;
+}
 export default function PaperDetail(props) {
   const classes = useStyles();
-  // useEffect(() => retrieveFiles(), []);
+  const params = useParams();
+  const id = params.id;
+  const paperDetails = useContractReader(props.readContracts, "Paper", "getPaper", [id], 100000);
+  console.log(paperDetails);
+  let title, author, tokenURI, fields, subFields, stage, validator;
+  if (paperDetails) {
+    title = paperDetails.title;
+    author = paperDetails.author;
+    tokenURI = "https://gateway.ipfs.io/ipfs/" + paperDetails.tokenURI;
+    fields = arrayToString(paperDetails.fields);
+    subFields = arrayToString(paperDetails.subFields);
+    validator = paperDetails.validator;
+    stage = stages[paperDetails.stage];
+  }
+
   return (
     <div style={{ background: "#F7F8FC" }}>
       <Grid container>
@@ -40,7 +64,7 @@ export default function PaperDetail(props) {
         <Grid item className={classes.root}>
           <Typography variant="h2" gutterBottom>
             {" "}
-            {props.title}
+            {title}
           </Typography>
           <Typography variant="h4" gutterBottom>
             Description
@@ -51,7 +75,15 @@ export default function PaperDetail(props) {
                 <Typography>Authors</Typography>
               </Grid>
               <Grid item xs={9}>
-                <Typography>Alan Turing</Typography>
+                <Typography>{author}</Typography>
+              </Grid>
+            </Grid>
+            <Grid container>
+              <Grid item xs={3}>
+                <Typography>Validator</Typography>
+              </Grid>
+              <Grid item xs={9}>
+                <Typography>{validator}</Typography>
               </Grid>
             </Grid>
             <Grid container>
@@ -60,12 +92,8 @@ export default function PaperDetail(props) {
               </Grid>
               <Grid item xs={9}>
                 {/* <div style={{ textOverflow: "ellipsis", width: "25rem" }}> */}
-                <Typography
-                  component="a"
-                  href={"https://gateway.ipfs.io/ipfs/QmRA3NWM82ZGynMbYzAgYTSXCVM14Wx1RZ8fKP42G6gjgj"}
-                  target="_blank"
-                >
-                  https://gateway.ipfs.io/ipfs/QmRA3NWM82ZGynMbYzAgYTSXCVM14Wx1RZ8fKP42G6gjgj
+                <Typography component="a" href={tokenURI} target="_blank">
+                  {tokenURI}
                 </Typography>
                 {/* </div> */}
               </Grid>
@@ -75,7 +103,7 @@ export default function PaperDetail(props) {
                 <Typography>Fields</Typography>
               </Grid>
               <Grid item xs={9}>
-                <Typography>Cryptoeconomics, Humanities</Typography>
+                <Typography>{fields}</Typography>
               </Grid>
             </Grid>
             <Grid container>
@@ -83,23 +111,23 @@ export default function PaperDetail(props) {
                 <Typography>Sub Fields</Typography>
               </Grid>
               <Grid item xs={9}>
-                <Typography>Cryptoeconomics, Humanities</Typography>
+                <Typography>{subFields}</Typography>
               </Grid>
             </Grid>
-            <Grid container>
+            {/* <Grid container>
               <Grid item xs={3}>
                 <Typography>Deadline</Typography>
               </Grid>
               <Grid item xs={9}>
                 <Typography>20 May 2021</Typography>
               </Grid>
-            </Grid>
+            </Grid> */}
             <Grid container>
               <Grid item xs={3}>
                 <Typography>Stage</Typography>
               </Grid>
               <Grid item xs={9}>
-                <Typography>Draft</Typography>
+                <Typography>{stage}</Typography>
               </Grid>
             </Grid>
           </Paper>
