@@ -4,29 +4,30 @@ schema:
 dataSources:
   - kind: ethereum/contract
     name: DAO
-    network: localhost
+    network: rinkeby
     source:
-      address: "{{localhost_DAOAddress}}"
+      address: "{{rinkeby_DAOAddress}}"
       abi: DAO
+      startBlock: 9114322
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
       language: wasm/assemblyscript
       entities:
-        - PaperCreated
-        - ReviewAdded
-        - Validated
-        - ValidationRequestSent
-        - ValidatorConfirmed
-        - ValidatorResponseSent
+        - Scholar
+        - Validator
+        - Paper
+        - Review
       abis:
         - name: DAO
-          file: ./abis/localhost_DAO.json
+          file: ./abis/rinkeby_DAO.json
       eventHandlers:
         - event: PaperCreated(uint256,string,address,address,uint256[],uint256)
           handler: handlePaperCreated
         - event: ReviewAdded(uint256,address,string,uint8)
           handler: handleReviewAdded
+        - event: Accepted(uint256)
+          handler: handleAccepted
         - event: Validated(uint256,uint8)
           handler: handleValidated
         - event: ValidationRequestSent(uint256,address)
@@ -35,13 +36,18 @@ dataSources:
           handler: handleValidatorConfirmed
         - event: ValidatorResponseSent(uint256,address,uint256)
           handler: handleValidatorResponseSent
+        - event: ScholarVerified(address,string,string[],string[],string)
+          handler: handleScholarVerified
+        - event: ValidatorVerified(address,string,address,string[],string[],string,uint256)
+          handler: handleValidatorVerified
       file: ./src/dao.mapping.ts
   - kind: ethereum/contract
     name: Paper
-    network: localhost
+    network: rinkeby
     source:
-      address: "{{localhost_PaperAddress}}"
+      address: "{{rinkeby_PaperAddress}}"
       abi: Paper
+      startBlock: 9114322
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
@@ -49,27 +55,27 @@ dataSources:
       entities:
         - Approval
         - ApprovalForAll
-        - PaperCreated
-        - ReviewAdded
         - Transfer
-        - Validated
-        - ValidationRequestSent
-        - ValidatorConfirmed
-        - ValidatorResponseSent
+        - Scholar
+        - Validator
+        - Paper
+        - Review
       abis:
         - name: Paper
-          file: ./abis/localhost_Paper.json
+          file: ./abis/rinkeby_Paper.json
       eventHandlers:
         - event: Approval(indexed address,indexed address,indexed uint256)
           handler: handleApproval
         - event: ApprovalForAll(indexed address,indexed address,bool)
           handler: handleApprovalForAll
+        - event: Transfer(indexed address,indexed address,indexed uint256)
+          handler: handleTransfer
         - event: PaperCreated(uint256,string,address,address,uint256[],uint256)
           handler: handlePaperCreated
         - event: ReviewAdded(uint256,address,string,uint8)
           handler: handleReviewAdded
-        - event: Transfer(indexed address,indexed address,indexed uint256)
-          handler: handleTransfer
+        - event: Accepted(uint256)
+          handler: handleAccepted
         - event: Validated(uint256,uint8)
           handler: handleValidated
         - event: ValidationRequestSent(uint256,address)
@@ -78,13 +84,18 @@ dataSources:
           handler: handleValidatorConfirmed
         - event: ValidatorResponseSent(uint256,address,uint256)
           handler: handleValidatorResponseSent
+        - event: ScholarVerified(address,string,string[],string[],string)
+          handler: handleScholarVerified
+        - event: ValidatorVerified(address,string,address,string[],string[],string,uint256)
+          handler: handleValidatorVerified
       file: ./src/paper.mapping.ts
   - kind: ethereum/contract
     name: SCH
-    network: localhost
+    network: rinkeby
     source:
-      address: "{{localhost_SCHAddress}}"
+      address: "{{rinkeby_SCHAddress}}"
       abi: SCH
+      startBlock: 9114322
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
@@ -94,7 +105,7 @@ dataSources:
         - Transfer
       abis:
         - name: SCH
-          file: ./abis/localhost_SCH.json
+          file: ./abis/rinkeby_SCH.json
       eventHandlers:
         - event: Approval(indexed address,indexed address,uint256)
           handler: handleApproval

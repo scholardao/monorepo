@@ -187,6 +187,7 @@ contract Paper is ERC721, DAO {
         paperById[_tokenId].deadline = validatorResponseDeadline[_validator][
             _tokenId
         ];
+        paperById[_tokenId].stage = PublicationStage.Preprint;
         emit ValidatorConfirmed(
             _tokenId,
             _validator,
@@ -236,6 +237,32 @@ contract Paper is ERC721, DAO {
         paperById[_tokenId].peerReviewers.push(_reviewer);
 
         emit ReviewAdded(_tokenId, _reviewer, _commentsCid, _decision);
+    }
+
+    function submitValidatorDecision(uint256 _tokenId, ValidatorDecision _decision)
+        public
+    {
+        require(
+            isValidator[msg.sender] == true,
+            "sender should be a validator"
+        );
+        require(_tokenId <= paperId.current(), "no such paper");
+        require(
+            paperById[_tokenId].validator == msg.sender,
+            "you are not the validator assigned to this paper"
+        );
+        require(
+            paperById[_tokenId].stage == PublicationStage.Preprint,
+            "cannot submit validator decision at this stage."
+        );
+        if (_decision ==ValidatorDecision.Accept) {
+            paperById[_tokenId].stage = PublicationStage.Published;
+            emit Accepted(_tokenId);
+        } else if (_decision ==ValidatorDecision.Reject) {
+            paperById[_tokenId].stage = PublicationStage.Draft;
+            paperById[_tokenId].validator = address(0);
+        }
+        emit Validated(_tokenId, _decision);
     }
 
     function sellPaper(uint256 _tokenId, address _buyer) public {

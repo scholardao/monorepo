@@ -10,7 +10,8 @@ import "@openzeppelin/contracts/token/ERC721/IERC721.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
 import "@chainlink/contracts/src/v0.6/ChainlinkClient.sol";
 
-contract DAO is ChainlinkClient{
+// contract DAO is ChainlinkClient{
+contract DAO {
     enum PublicationStage {
         Draft,
         Preprint,
@@ -78,8 +79,8 @@ contract DAO is ChainlinkClient{
         string commentsCid;
     }
     
-    address oracle = 0x3A56aE4a2831C3d3514b5D7Af5578E45eBDb7a40;
-    uint256 fee = 1 * LINK;
+    // address oracle = 0x3A56aE4a2831C3d3514b5D7Af5578E45eBDb7a40;
+    // uint256 fee = 1 * LINK;
     bool public data;
     mapping(uint256 => PaperStruct) public paperById;
     mapping(address => Scholar) public scholarByAddress;
@@ -109,6 +110,7 @@ contract DAO is ChainlinkClient{
         string commentCid,
         ReviewerDecision reviewerDecision
     );
+    event Accepted(uint256 tokenId);
     event Validated(uint256 tokenId, ValidatorDecision vDes);
     event ValidationRequestSent(uint256 _tokenId, address _validatorAddress);
     event ValidatorResponseSent(
@@ -121,9 +123,25 @@ contract DAO is ChainlinkClient{
         address _validator,
         uint256 _deadline
     );
+    event ScholarVerified(
+        address payable _addr,
+        string _name,
+        string[] _fields,
+        string[] _subFields,
+        string _tweetUrl
+    );
+    event ValidatorVerified(
+        address payable _addr,
+        string _name,
+        address _scholarAddress,
+        string[] _fields,
+        string[] _subFields,
+        string _tweetUrl,
+        uint256 _collateral
+    );
 
     constructor() public {
-        setPublicChainlinkToken();
+        // setPublicChainlinkToken();
         fields = [
             "Computer Science",
             "Mathematics",
@@ -179,7 +197,7 @@ contract DAO is ChainlinkClient{
     ) public returns (bool) {
         require(!isVerifiedScholar[msg.sender], "already verified");
         // check if LINK was sent as gas
-        chainlinkVerifier(_tweetUrl, addressToString(msg.sender));
+        // chainlinkVerifier(_tweetUrl, addressToString(msg.sender));
         // require(done.toString()== "true" , 'not verified');
         Scholar memory s = Scholar(
             payable(msg.sender),
@@ -190,6 +208,8 @@ contract DAO is ChainlinkClient{
         );
         scholarByAddress[msg.sender] = s;
         isVerifiedScholar[msg.sender] = true;
+
+        emit ScholarVerified(payable(msg.sender), _name, _fields, _subFields, _tweetUrl);
 
         return true;
     }
@@ -204,7 +224,7 @@ contract DAO is ChainlinkClient{
     ) public payable returns (bool) {
         require(!isValidator[msg.sender], "already verified");
         // check if LINK was sent as gas
-        chainlinkVerifier(_tweetUrl, addressToString(msg.sender));
+        // chainlinkVerifier(_tweetUrl, addressToString(msg.sender));
         // require(done.toString()== "true" , 'not verified');
         Validator memory v = Validator(
             payable(msg.sender),
@@ -217,6 +237,8 @@ contract DAO is ChainlinkClient{
         validatorByAddress[msg.sender] = v;
         isValidator[msg.sender] = true;
         validatorCollateral[msg.sender] = _collateral;
+
+        emit ValidatorVerified(payable(msg.sender), _name, _scholarAddress, _fields, _subFields, _tweetUrl, _collateral);
         return true;
     }
     function getPaper (
@@ -225,16 +247,16 @@ contract DAO is ChainlinkClient{
     return paperById[_tokenId];
     }
     
-    function chainlinkVerifier (string memory _tweetUrl, string memory _ethaddress) public returns(bytes32 requestId){
-      Chainlink.Request memory req = buildChainlinkRequest("7a3192ceaf8b49f6983ef904de242637", address(this), this.fulfill.selector);
-      req.add("tweetid", _tweetUrl);
-      req.add("ethaddress", _ethaddress);
-      requestId= sendChainlinkRequestTo(oracle, req, fee);
-      return requestId;
-    }
+    // function chainlinkVerifier (string memory _tweetUrl, string memory _ethaddress) public returns(bytes32 requestId){
+    //   Chainlink.Request memory req = buildChainlinkRequest("7a3192ceaf8b49f6983ef904de242637", address(this), this.fulfill.selector);
+    //   req.add("tweetid", _tweetUrl);
+    //   req.add("ethaddress", _ethaddress);
+    //   requestId= sendChainlinkRequestTo(oracle, req, fee);
+    //   return requestId;
+    // }
     
-    function fulfill (bytes32 _requestId, bool _data) public
-    recordChainlinkFulfillment(_requestId){
-      data= _data;
-    }    
+    // function fulfill (bytes32 _requestId, bool _data) public
+    // recordChainlinkFulfillment(_requestId){
+    //   data= _data;
+    // }    
 }

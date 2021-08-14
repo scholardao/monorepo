@@ -1,9 +1,3 @@
-type ExampleEntity @entity {
-  id: ID!
-  count: BigInt!
-  owner: Bytes! # address
-}
-
 type Paper @entity {
   id: ID!
   tokenURI: String!
@@ -11,7 +5,7 @@ type Paper @entity {
   owner: Bytes!
   author: Scholar!
   validator: Validator
-  peerReviewers: [Bytes!]!
+  peerReviewers: [Bytes!]
   fields: [String!]!
   subFields: [String!]
   citationsUsed: [Paper!]
@@ -25,7 +19,7 @@ type Paper @entity {
 type Scholar @entity {
   id: ID!
   name: String!
-  verification: Boolean!
+  verified: Boolean!
   fields: [String!]!
   subFields: [String!]!
   publications: [Paper!] # papers written by this scholar
@@ -35,7 +29,7 @@ type Scholar @entity {
 type Validator @entity {
   id: ID!
   name: String!
-  verification: Boolean!
+  verified: Boolean!
   fields: [String!]!
   subFields: [String!]!
   scholar: Scholar # this validator's scholar account on the network
@@ -44,8 +38,23 @@ type Validator @entity {
   collateral: BigInt!
 }
 
+type Review @entity {
+  id: ID!
+  reviewer: Scholar!
+  paper: ID!
+  decision: ReviewerDecision!
+  commentsCid: String!
+}
+
 enum PublicationStage {
   Draft
   Preprint
   Published
+}
+
+enum ReviewerDecision {
+  Accept
+  MinorRevision
+  MajorRevision
+  Reject
 }
