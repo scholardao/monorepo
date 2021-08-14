@@ -12,6 +12,32 @@
 
 
 }
+.uploadLabel{
+    position:absolute;
+    top:68%;
+    right:40%;
+
+}
+.titleContainer8{
+    position:absolute;
+    top:20%;
+    right:30%
+}
+.uploadbuttonlabel{
+    position:absolute;
+    top:75%;
+    right:82%;
+}
+#button2{
+    position:absolute;
+    top:85%;
+    right:47%;
+}
+.button3{
+    position:absolute;
+    top:50%;
+    right:-380%;
+}
 .mainTitle{
     color:black;
     position:absolute;
@@ -57,32 +83,32 @@
     right:25%;
 }
 .helperDiv4{
-    width:250px;
+    width:350px;
     height:50px;
     border-radius:10px;
     color:honeydew;
     background-color:#4280c7;
     position:absolute;
     top:10%;
-    right:-30%;
+    right:-55%;
     font-size:medium;
 }
 .titleContainer5{
     width: 600px;
     height:400px;
     position:absolute;
-    top:55%;
+    top:60%;
     right:25%;
 }
 .helperDiv5{
-    width:250px;
+    width:350px;
     height:50px;
     border-radius:10px;
     color:honeydew;
     background-color:#4280c7;
     position:absolute;
     top:10%;
-    right:-15%;
+    right:-45%;
     font-size:medium;
 }
 .titleContainer6{
