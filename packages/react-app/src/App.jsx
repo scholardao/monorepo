@@ -202,12 +202,12 @@ function App(props) {
         <Route exact path="/dashboard/papers/1">
           <PaperDetails title="haha"></PaperDetails>
         </Route>
-    <Route path = "/upload">
-    <Uploadform />
-    </Route>
-    <Route exact path = '/'>
-      <Home></Home>
-    </Route>
+       <Route path = "/upload">
+         <Uploadform />
+       </Route>
+      <Route exact path = '/'>
+        <Home></Home>
+      </Route>
       </Switch>
       </BrowserRouter>
     </div>
