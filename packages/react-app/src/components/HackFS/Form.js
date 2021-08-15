@@ -3,8 +3,10 @@ import { makeStyles } from "@material-ui/core/styles";
 import NavBar from "./NavBar";
 import { useEffect, useState } from "react";
 import { Web3Storage } from "web3.storage/dist/bundle.esm.min.js";
-import { useContractLoader } from "../../hooks";
+import { useContractLoader, useContractReader } from "../../hooks";
 import { ethers } from "ethers";
+import HOCSigner from "./HOCSigner";
+import { useHistory } from "react-router-dom";
 const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1,
@@ -27,17 +29,6 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function HOCForm() {
-  const [signer, setSigner] = useState();
-  useEffect(() => {
-    window.ethereum.enable();
-    const provider = new ethers.providers.Web3Provider(window.ethereum);
-    const signer = provider.getSigner();
-    setSigner(signer);
-  }, []);
-  return <Form signer={signer}></Form>;
-}
-
 function Form(props) {
   const classes = useStyles();
   const [title, setTitle] = useState("");
@@ -46,9 +37,10 @@ function Form(props) {
   const [validatorTip, setValidatorTip] = useState("");
   const [validatorAddress, setValidatorAddress] = useState("");
   const [files, setFiles] = useState();
-  const [signer, setSigner] = useState();
-  const readContracts = useContractLoader(props.signer, { chainId: 4 });
-  console.log(readContracts);
+  const writeContracts = useContractLoader(props.signer, { chainId: 4 });
+  const paperId = useContractReader(props.readContracts, "Paper", "paperId");
+  const history = useHistory();
+  console.log(writeContracts);
 
   //   useEffect(() => {
   //     try {
@@ -66,16 +58,22 @@ function Form(props) {
     });
     const cid = await client.put(files);
     console.log("store files with cid: ", cid);
-    await readContracts["Paper"].submitDraft(title, cid, [fields], [subFields], [], 0, [validatorAddress]);
-    // await readContracts["Paper"].verifyValidatorProfile(
-    //   "Cuong",
-    //   "0x4deec328d7546873375C771C725c41d4Bb70A79E",
-    //   [],
-    //   [],
-    //   "nnn",
-    //   10,
+    await writeContracts["Paper"].submitDraft(title, cid, [fields], [subFields], [], 0, [validatorAddress]);
+    history.push("/app/papers");
+    // await writeContracts["Paper"].verifyScholarProfile(
+    //   "Scholar 2",
+    //   ["Computer Science"],
+    //   ["Computer Science"],
+    //   "https://twitter.com/cuong_qnom",
     // );
-    alert("Submitted draft successfully");
+    // await writeContracts["Paper"].verifyValidatorProfile(
+    //   "Validator 2",
+    //   "0xff71b146d0Ab307c49264D2BB368eDdf14aDB38B",
+    //   ["Computer Science"],
+    //   ["Computer Science"],
+    //   "https://twitter.com/aeyakovenko",
+    //   1,
+    // );
   };
   //   const [author, setAuthor] = useState("");
 
@@ -155,7 +153,7 @@ function Form(props) {
                   ></TextField>
                 </Grid>
                 <Grid item xs={9}>
-                  <Typography variant="h6">Validator Addresses</Typography>
+                  <Typography variant="h6">Validator Address</Typography>
                   <TextField
                     placeholder="0x000000"
                     variant="outlined"
@@ -199,3 +197,5 @@ function Form(props) {
     </div>
   );
 }
+
+export default HOCSigner(Form);

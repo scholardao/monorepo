@@ -1,6 +1,7 @@
 import { Grid, Drawer, List, ListItem, Button, ListItemText, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import SchoolLogo from "../../assets/school.svg";
+import { useLocation } from "react-router-dom";
 
 const drawerWidth = 250;
 const drawerColor = "#363740";
@@ -17,14 +18,20 @@ const useStyles = makeStyles(theme => ({
     width: "100%",
   },
   drawerText: {
-    color: "#A4A6B3",
+    color: "#DDE2FF",
     flexGrow: 1,
     paddingLeft: "10px",
   },
   drawerSection: {
-    color: "#A4A6B3",
+    color: "#DDE2FF",
     flexGrow: 1,
     paddingLeft: "30px",
+  },
+  drawerSectionActive: {
+    color: "#DDE2FF",
+    flexGrow: 1,
+    paddingLeft: "30px",
+    backgroundColor: "#9FA2B4",
   },
   title: {
     height: "100px",
@@ -34,6 +41,8 @@ const useStyles = makeStyles(theme => ({
 
 export default function NavBar() {
   const classes = useStyles();
+  const location = useLocation();
+
   return (
     <Drawer className={classes.drawer} variant="permanent" anchor="left" classes={{ paper: classes.drawerPaper }}>
       <Grid container>
@@ -46,7 +55,12 @@ export default function NavBar() {
           </Grid>
         </Grid>
         <List component={Grid} container>
-          <ListItem button component="a" href="/app/papers" className={classes.drawerSection}>
+          <ListItem
+            button
+            component="a"
+            href="/app/papers"
+            className={location.pathname.includes("papers") ? classes.drawerSectionActive : classes.drawerSection}
+          >
             {/* <img
             style={{ fill: "gray" }}
             src={Logo}
@@ -60,8 +74,7 @@ export default function NavBar() {
             button
             component="a"
             href="/app/upload"
-            // action="/haha"
-            className={classes.drawerSection}
+            className={location.pathname.includes("upload") ? classes.drawerSectionActive : classes.drawerSection}
           >
             <ListItemText className={classes.drawerText}>Upload a paper</ListItemText>
           </ListItem>

@@ -52,7 +52,7 @@ export default function Author(props) {
   // useEffect(async () => {
   //   console.log(paperId);
   //   let tempRows = [];
-  //   for (let i = 0; i <= paperId; i++) {
+  //   for (let i = 1; i <= paperId; i++) {
   //     const paper = await props.readContracts["Paper"]["getPaper"](i);
   //     console.log(i);
   //     console.log(paper);

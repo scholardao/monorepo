@@ -110,6 +110,7 @@ contract Paper is ERC721URIStorage, DAO {
             emit ValidationRequestSent(newPaperId, _validatorAddresses[i]);
         }
 
+        requestValidation(newPaperId, _validatorAddresses);
         return newPaperId;
     }
 
@@ -165,6 +166,8 @@ contract Paper is ERC721URIStorage, DAO {
         );
 
         validatorResponseDeadline[msg.sender][_tokenId] = _deadline;
+        paperById[_tokenId].stage = PublicationStage.Preprint;
+        paperById[_tokenId].validator = payable(msg.sender);
         emit ValidatorResponseSent(_tokenId, msg.sender, _deadline);
         return (_deadline);
     }
@@ -236,6 +239,10 @@ contract Paper is ERC721URIStorage, DAO {
         paperById[_tokenId].peerReviewers.push(_reviewer);
 
         emit ReviewAdded(_tokenId, _reviewer, _commentsCid, _decision);
+    }
+
+    function approvePaper(uint256 _tokenId) public {
+        paperById[_tokenId].stage = PublicationStage.Published;
     }
 
     function sellPaper(uint256 _tokenId, address _buyer) public {

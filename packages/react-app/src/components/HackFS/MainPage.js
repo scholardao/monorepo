@@ -15,8 +15,8 @@ const useStyles = makeStyles(theme => ({
     paddingTop: "50px",
   },
 }));
-function createData(id, title, authors, submitted, status) {
-  return { id, title, authors, submitted, status };
+function createData(id, title, authors, status) {
+  return { id, title, authors, status };
 }
 export default function MainPage(props) {
   const classes = useStyles();
@@ -26,7 +26,7 @@ export default function MainPage(props) {
   useEffect(async () => {
     console.log(paperId);
     let tempRows = [];
-    for (let i = 0; i <= paperId; i++) {
+    for (let i = 1; i <= paperId; i++) {
       const paper = await props.readContracts["Paper"]["getPaper"](i);
       console.log(i);
       console.log(paper);
@@ -40,10 +40,11 @@ export default function MainPage(props) {
       //     stages[paper["stage"]],
       //   ),
       // );
-      tempRows.push(createData(i, paper.title, paper.author, "May 12", stages[paper.stage]));
+      tempRows.push(createData(i, paper.title, paper.author, stages[paper.stage]));
     }
     setRows(tempRows);
   }, [paperId]);
+
   return (
     <div style={{ backgroundColor: "#F7F8FC" }}>
       <Grid container>

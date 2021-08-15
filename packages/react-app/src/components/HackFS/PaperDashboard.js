@@ -19,7 +19,10 @@ const useStyles = makeStyles(theme => ({
     flexDirection: "column",
   },
   tableRow: {
-    "&:hover": { cursor: "grabbing" },
+    "&:hover": {
+      cursor: "grabbing",
+      // backgroundColor: "gray"
+    },
   },
 }));
 
@@ -39,8 +42,8 @@ export default function PaperDashboard(props) {
               <TableRow>
                 <TableCell>ID</TableCell>
                 <TableCell>Title</TableCell>
-                <TableCell>Authors</TableCell>
-                <TableCell>Status</TableCell>
+                <TableCell>Author</TableCell>
+                <TableCell>Stage</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>

@@ -85,7 +85,8 @@ contract DAO {
     mapping(string => string[]) public subFields;
     mapping(address => uint256) validatorCollateral;
     mapping(address => mapping(uint256 => bool)) public validatorRequests;
-    mapping(address => mapping(uint256 => uint256)) public validatorResponseDeadline;
+    mapping(address => mapping(uint256 => uint256))
+        public validatorResponseDeadline;
     mapping(address => mapping(uint256 => Review[])) public reviews;
     mapping(address => mapping(uint256 => uint256)) public sponsorAmounts;
 
@@ -192,9 +193,12 @@ contract DAO {
         validatorCollateral[msg.sender] = _collateral;
         return true;
     }
-    function getPaper (
-    uint256 _tokenId
-    ) public view returns (PaperStruct memory){
-    return paperById[_tokenId];
+
+    function getPaper(uint256 _tokenId)
+        public
+        view
+        returns (PaperStruct memory)
+    {
+        return paperById[_tokenId];
     }
 }
