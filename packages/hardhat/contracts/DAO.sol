@@ -38,7 +38,7 @@ contract DAO {
     struct Scholar {
         address payable scholarAddress;
         string name;
-        bool verification;
+        bool verified;
         string[] fields;
         string[] subFields;
     }
@@ -46,7 +46,7 @@ contract DAO {
     struct Validator {
         address payable validatorAddress;
         string name;
-        bool verification;
+        bool verified;
         address scholarAddress;
         string[] fields;
         string[] subFields;
@@ -58,17 +58,14 @@ contract DAO {
         string title;
         address payable owner;
         address payable author;
-        // address payable[] authors;
-        // address payable beneficiary;
         address payable validator;
         address payable[] peerReviewers;
         string[] fields;
         string[] subFields;
-        uint256[] citationsUsed;
+        uint256[] references;
         uint256 validatorTip;
         uint256 deadline;
         PublicationStage stage;
-        // mapping(address => uint256) sponsorAmounts;
         uint256 amountRaised;
     }
 
@@ -95,15 +92,28 @@ contract DAO {
     mapping(address => mapping(uint256 => uint256)) public validatorResponseDeadline;
     mapping(address => mapping(uint256 => Review[])) public reviews;
     mapping(address => mapping(uint256 => uint256)) public sponsorAmounts;
+    mapping(uint256 => uint256[]) public citedBy;
+    mapping(uint256 => uint256) public citedByCount;
+    mapping(address => uint256) public hIndex;
+    mapping(address => uint256[]) public scholarPapers;
 
     event PaperCreated(
         uint256 id,
-        string tokenURI,
-        address payable owner,
-        address payable author,
-        uint256[] citationsUsed,
-        uint256 validatorTip
+        string[] fields,
+        uint256[] references
     );
+    // event PaperCreated(
+    //     uint256 id,
+    //     string tokenURI,
+    //     string title,
+    //     address payable owner,
+    //     address payable author,
+    //     string[] fields,
+    //     string[] subFields,
+    //     uint256[] references,
+    //     uint256 validatorTip
+    // );
+    // event PaperCreated(PaperStruct);
     event ReviewAdded(
         uint256 tokenId,
         address reviewer,
@@ -142,31 +152,6 @@ contract DAO {
 
     constructor() public {
         // setPublicChainlinkToken();
-        fields = [
-            "Computer Science",
-            "Mathematics",
-            "Physics",
-            "Chemistry",
-            "Life Sciences"
-        ];
-        subFields["Computer Science"] = [
-            "Theory of computation",
-            "Information and coding theory",
-            "Data structures and algorithms",
-            "Programming language theory and formal methods",
-            "Artificial intelligence",
-            "Game Theory",
-            "Computer architecture and organization",
-            "Concurrent, parallel and distributed computing",
-            "Computer networks",
-            "Computer security and cryptography",
-            "Databases and data mining",
-            "Computer graphics and visualization",
-            "Image and sound processing",
-            "Computational science, finance and engineering",
-            "Social computing and human computer interaction",
-            "Software engineering"
-        ];
     }
     
     function addressToString(address _address) public pure returns (string memory _uintAsString) {
@@ -245,6 +230,10 @@ contract DAO {
     uint256 _tokenId
     ) public view returns (PaperStruct memory){
     return paperById[_tokenId];
+    }
+
+    function getHIndex(address _scholarAddress) public view returns (uint256) {
+        return hIndex[_scholarAddress];
     }
     
     // function chainlinkVerifier (string memory _tweetUrl, string memory _ethaddress) public returns(bytes32 requestId){

@@ -1,34 +1,35 @@
 type Paper @entity {
   id: ID!
-  tokenURI: String!
-  title: String!
+  tokenURI: String
+  title: String
   owner: Bytes!
   author: Scholar!
   validator: Validator
-  peerReviewers: [Bytes!]
+  peerReviewers: [Scholar!]
+  reviews: [Review!]
   fields: [String!]!
   subFields: [String!]
-  citationsUsed: [Paper!]
+  references: [BigInt!]
   validatorTip: BigInt!
-  deadline: BigInt!
+  deadline: BigInt
   stage: PublicationStage!
   amountRaised: BigInt!
-  citedBy: [Paper!]
+  citedBy: [BigInt!]
 }
 
 type Scholar @entity {
   id: ID!
-  name: String!
+  name: String
   verified: Boolean!
-  fields: [String!]!
-  subFields: [String!]!
+  fields: [String!]
+  subFields: [String!]
   publications: [Paper!] # papers written by this scholar
   hIndex: Int
 }
 
 type Validator @entity {
   id: ID!
-  name: String!
+  name: String
   verified: Boolean!
   fields: [String!]!
   subFields: [String!]!
@@ -41,7 +42,7 @@ type Validator @entity {
 type Review @entity {
   id: ID!
   reviewer: Scholar!
-  paper: ID!
+  paper: Paper!
   decision: ReviewerDecision!
   commentsCid: String!
 }

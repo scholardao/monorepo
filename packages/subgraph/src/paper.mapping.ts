@@ -70,46 +70,53 @@ import { Paper, Scholar } from "../generated/schema"
 // export function handleApprovalForAll(event: ApprovalForAll): void {}
 
 export function handlePaperCreated(event: PaperCreated): void {
-  let paper = new Paper(event.params.id.toHex())
-  paper.owner = event.params.owner
+  let paper = new Paper(event.params.id.toString())
+  paper.id = event.params.id.toString()
+  paper.owner = event.transaction.from
+  paper.author = event.transaction.from.toHex()
 
-  paper.author = event.params.author.toHex()
-  // paper.author = event.params.author.toString()
-  // paper.citedBy
-  // let citations = event.params.citationsUsed.map(c => {
-  //   return c.toString();
-  // });
-  paper.citationsUsed = ['1'];
-  // paper.id = 
-  paper.tokenURI = event.params.tokenURI
-  paper.title = '';
-  paper.validatorTip = event.params.validatorTip
-  // paper.peerReviewers = [Bytes.fromI32(event.params.author.toHex())]
-  paper.fields = ['randomfield']
-  // validatorTip: BigInt!
-  paper.deadline = BigInt.fromI32(10000)
+  // let ecu = event.params.references
+  // for (let i = 0; i < ecu.length; i++) {
+  //   let c = ecu[i];
+  //   let citedPaper = Paper.load(c.toString())
+  //   // citedPaper.id
+  //   citedPaper.citedBy.push(event.params.id)
+  //   citedPaper.save()
+  // }
+  // ecu.forEach(c => {
+  //   let citedPaper = Paper.load(c.toString())
+  //   citedPaper.citedBy.push(event.params.id)
+  //   citedPaper.save()
+  // })
+
+  paper.references = event.params.references;// ['1'];
+  paper.validatorTip = event.transaction.value
+  paper.fields = event.params.fields
+  paper.deadline = event.block.timestamp.plus(BigInt.fromI32(5760*7*6))
   paper.stage = "Draft"
   paper.amountRaised = BigInt.fromI32(0)
-  // citedBy: [Paper!]
-  // paper.setcitationsUsed(citations);
-  // paper
   paper.save()
-  let citationsCount = 0
-  event.params.citationsUsed.forEach(c => {
-    // console.log(c);
-    let citedPaper = Paper.load(c.toHex())
-    citedPaper.citedBy.push(event.params.id.toHex())
-    citedPaper.save()
-  })
-  let paperScholar = Scholar.load(event.params.author.toHex())
+
+  // let ecu = event.params.references
+  // for (let i = 0; i < ecu.length; i++) {
+  //   let c = ecu[i];
+  //   let citedPaper = Paper.load(c.toString())
+  //   citedPaper.id = c.toString()
+  //   citedPaper.citedBy.push(event.params.id)
+  //   citedPaper.save()
+  // }
+
+  let paperScholar = Scholar.load(event.transaction.from.toHex())
   if (paperScholar == null) {
-    let scholar = new Scholar(event.params.author.toHex())
-    scholar.publications.push(paper.id)
-    scholar.hIndex = citationsCount
+    let scholar = new Scholar(event.transaction.from.toHex())
+    scholar.verified = true
+    scholar.publications = [event.params.id.toString()]
+    scholar.hIndex = scholar.publications.length
     scholar.save()
   } else {
-    paperScholar.publications.push(paper.id)
-    // paperScholar.hIndex += citationsCount
+    // paperScholar.publications.push(paper.id)
+    paperScholar.publications = [event.params.id.toString()]
+    paperScholar.hIndex = paperScholar.publications.length
     paperScholar.save()
   }
 }
@@ -139,7 +146,7 @@ export function handleScholarVerified(event: ScholarVerified): void {
     scholar.subFields = event.params._subFields
     scholar.verified = true
     // scholar.publications = event.params.
-    scholar.hIndex
+    // scholar.hIndex = 10
     scholar.save()
   }
 }

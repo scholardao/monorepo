@@ -26,7 +26,7 @@ contract Paper is ERC721, DAO {
         string memory _tokenURI,
         string[] memory _fields,
         string[] memory _subFields,
-        uint256[] memory _citationsUsed,
+        uint256[] memory _references,
         uint256 _validatorTip,
         address payable[] memory _validatorAddresses
     ) public payable returns (uint256) {
@@ -55,7 +55,7 @@ contract Paper is ERC721, DAO {
             _peerReviewers,
             _fields,
             _subFields,
-            _citationsUsed,
+            _references,
             _validatorTip,
             block.timestamp + 6 weeks, // default deadline
             PublicationStage.Draft,
@@ -83,18 +83,34 @@ contract Paper is ERC721, DAO {
 
         // updates mapping
         paperById[newPaperId] = paper;
+        scholarPapers[_author].push(newPaperId);
+
+        for (uint256 i = 0; i < _references.length; i++) {
+            citedBy[_references[i]].push(newPaperId);
+            citedByCount[_references[i]] += 1;
+            address pauthor = paperById[_references[i]].author;
+            uint256 maxhindex = scholarPapers[pauthor].length;
+            uint256 maxcit = 0;
+            for (uint256 j=0; j<scholarPapers[pauthor].length;j++){
+                maxcit = citedByCount[scholarPapers[pauthor][j]];
+                if (maxcit <= maxhindex) {
+                    hIndex[pauthor] = maxhindex;
+                }
+            }
+        }
+
         emit PaperCreated(
             newPaperId,
-            _tokenURI,
+            // _tokenURI
             // _title,
-            _owner,
-            _author,
-            // _authors,
-            // _fields,
-            // _subFields,
-            _citationsUsed,
-            _validatorTip
+            // // _owner,
+            // // _author,
+            _fields,
+            // // _subFields,
+            _references
+            // // _validatorTip
         );
+        // emit PaperCreated(paper);
 
         // send validationRequest
         for (uint256 i = 0; i < _validatorAddresses.length; i++) {

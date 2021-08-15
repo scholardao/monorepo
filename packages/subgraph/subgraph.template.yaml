@@ -8,7 +8,7 @@ dataSources:
     source:
       address: "{{rinkeby_DAOAddress}}"
       abi: DAO
-      startBlock: 9114322
+      startBlock: 9119270
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
@@ -22,8 +22,9 @@ dataSources:
         - name: DAO
           file: ./abis/rinkeby_DAO.json
       eventHandlers:
-        - event: PaperCreated(uint256,string,address,address,uint256[],uint256)
+        - event: PaperCreated(uint256,string[],uint256[])
           handler: handlePaperCreated
+          # (uint256,string,string,address,address,string[],string[],uint256[],uint256)
         - event: ReviewAdded(uint256,address,string,uint8)
           handler: handleReviewAdded
         - event: Accepted(uint256)
@@ -47,7 +48,7 @@ dataSources:
     source:
       address: "{{rinkeby_PaperAddress}}"
       abi: Paper
-      startBlock: 9114322
+      startBlock: 9119270
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
@@ -70,8 +71,9 @@ dataSources:
           handler: handleApprovalForAll
         - event: Transfer(indexed address,indexed address,indexed uint256)
           handler: handleTransfer
-        - event: PaperCreated(uint256,string,address,address,uint256[],uint256)
+        - event: PaperCreated(uint256,string[],uint256[])
           handler: handlePaperCreated
+          # (uint256,string,string,address,address,string[],string[],uint256[],uint256)
         - event: ReviewAdded(uint256,address,string,uint8)
           handler: handleReviewAdded
         - event: Accepted(uint256)
@@ -95,7 +97,7 @@ dataSources:
     source:
       address: "{{rinkeby_SCHAddress}}"
       abi: SCH
-      startBlock: 9114322
+      startBlock: 9119270
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
