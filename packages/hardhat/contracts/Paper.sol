@@ -22,7 +22,6 @@ contract Paper is ERC721, DAO {
 
     function submitDraft(
         string memory _title,
-        // address payable[] memory _authors,
         string memory _tokenURI,
         string[] memory _fields,
         string[] memory _subFields,

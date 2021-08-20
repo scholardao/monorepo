@@ -8,7 +8,7 @@ dataSources:
     source:
       address: "{{rinkeby_DAOAddress}}"
       abi: DAO
-      startBlock: 9119270
+      startBlock: 9146704
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
@@ -48,7 +48,7 @@ dataSources:
     source:
       address: "{{rinkeby_PaperAddress}}"
       abi: Paper
-      startBlock: 9119270
+      startBlock: 9146704
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
@@ -97,7 +97,7 @@ dataSources:
     source:
       address: "{{rinkeby_SCHAddress}}"
       abi: SCH
-      startBlock: 9119270
+      startBlock: 9146704
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4

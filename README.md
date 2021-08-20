@@ -1,5 +1,7 @@
 # ScholarDAO
 
+Subgraph URL: https://thegraph.com/legacy-explorer/subgraph/scholardao/scholar-dao
+
 Workflow:
 ![Workflow](./assets/workflow1.png)
 

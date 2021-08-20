@@ -1,4 +1,4 @@
-import { BigInt, Bytes, Value } from "@graphprotocol/graph-ts"
+import { BigInt, Bytes, Value, Address, log } from "@graphprotocol/graph-ts"
 import {
   Approval,
   ApprovalForAll,
@@ -74,50 +74,103 @@ export function handlePaperCreated(event: PaperCreated): void {
   paper.id = event.params.id.toString()
   paper.owner = event.transaction.from
   paper.author = event.transaction.from.toHex()
-
-  // let ecu = event.params.references
-  // for (let i = 0; i < ecu.length; i++) {
-  //   let c = ecu[i];
-  //   let citedPaper = Paper.load(c.toString())
-  //   // citedPaper.id
-  //   citedPaper.citedBy.push(event.params.id)
-  //   citedPaper.save()
-  // }
-  // ecu.forEach(c => {
-  //   let citedPaper = Paper.load(c.toString())
-  //   citedPaper.citedBy.push(event.params.id)
-  //   citedPaper.save()
-  // })
-
-  paper.references = event.params.references;// ['1'];
+  paper.references = event.params.references
   paper.validatorTip = event.transaction.value
   paper.fields = event.params.fields
   paper.deadline = event.block.timestamp.plus(BigInt.fromI32(5760*7*6))
   paper.stage = "Draft"
   paper.amountRaised = BigInt.fromI32(0)
+  paper.citedBy = []
   paper.save()
 
-  // let ecu = event.params.references
-  // for (let i = 0; i < ecu.length; i++) {
-  //   let c = ecu[i];
-  //   let citedPaper = Paper.load(c.toString())
-  //   citedPaper.id = c.toString()
-  //   citedPaper.citedBy.push(event.params.id)
-  //   citedPaper.save()
-  // }
+  let ecu: Array<BigInt> = event.params.references
+  for (let i = 0; i < ecu.length; i++) {
+    let c:BigInt = ecu[i];
+    let citedPaper = Paper.load(c.toString())
+    if (citedPaper == null) {
+      citedPaper = new Paper(c.toString())
+      citedPaper.owner = Address.fromString("0x0000000000000000000000000000000000000000")
+      citedPaper.author = "0x0000000000000000000000000000000000000000"
+      citedPaper.references = []
+      citedPaper.validatorTip = BigInt.fromI32(0)
+      citedPaper.fields = []
+      citedPaper.deadline = event.block.timestamp.plus(BigInt.fromI32(5760*7*6))
+      citedPaper.stage = "Draft"
+      citedPaper.amountRaised = BigInt.fromI32(0)
+      citedPaper.citedBy = [event.params.id]
+      citedPaper.save()
+    } else {
+      citedPaper.id = c.toString()
+      let cpcb:Array<BigInt> = citedPaper.citedBy
+      cpcb.push(event.params.id)
+      citedPaper.citedBy = cpcb
+      citedPaper.save()
+      // log.info("cpauthor {}", [citedPaper.author])
+
+      let cpauthor = Scholar.load(citedPaper.author)
+      if (cpauthor != null) {
+        let cpauthorPubs:Array<string> = cpauthor.publications as Array<string>
+        let maxcit: number = 0
+        let maxhindex: number = cpauthorPubs.length
+        let hindex: number = 0
+        // log.debug("cpauthorPubsl = {}", [BigInt.fromI32(cpauthorPubs.length).toString()])
+        let arr:Array<number> = []
+        for (let j = 0; j < cpauthorPubs.length; j++) {
+          // log.debug("cpauthorPubs[j] = {}", [<string>cpauthorPubs[j]])
+          let cpauthorPubId:string = cpauthorPubs[j];
+            let cpauthorPub = Paper.load(cpauthorPubId)
+            if (cpauthorPub != null) {
+              arr.push(cpauthorPub.citedBy.length)
+              // maxcit = cpauthorPub.citedBy.length
+              // if (maxcit <= maxhindex) {
+              //   hindex = maxcit
+              // }
+            }
+        }
+        arr.sort()
+        for (let k = 0; k < arr.length; k++) {
+          let cited = arr[k];
+          let result = arr.length - k
+          if (result <= cited) {
+            hindex = result
+            break
+          }
+        }
+        cpauthor.hIndex = <i32>hindex
+        cpauthor.save()
+      }
+      // citedPaper.save()
+    }
+  }
 
   let paperScholar = Scholar.load(event.transaction.from.toHex())
+  // log.info("paperScholar {}", [paperScholar.id])
   if (paperScholar == null) {
     let scholar = new Scholar(event.transaction.from.toHex())
     scholar.verified = true
     scholar.publications = [event.params.id.toString()]
-    scholar.hIndex = scholar.publications.length
+    scholar.hIndex = 0
     scholar.save()
   } else {
-    // paperScholar.publications.push(paper.id)
-    paperScholar.publications = [event.params.id.toString()]
-    paperScholar.hIndex = paperScholar.publications.length
+    // log.info("paperScholar CASE 2 {}", ["hmm"])
+
+    let psps:Array<string> = paperScholar.publications
+    psps.push(event.params.id.toString())
+    paperScholar.publications = psps
+
+    // paperScholar.publications.push(event.params.id.toString())
+    // paperScholar.hIndex = paperScholar.publications.length
     paperScholar.save()
+    // let pubs: Array<string> = paperScholar.publications
+    // for (let i = 0; i < pubs.length; i++) {
+    //   const pub = pubs[i];
+    //   let schPub = Paper.load(pub)
+    //   let maxcit: number = 0
+    //   let maxhindex: number = 0
+    //   if (schPub != null) {
+    //     let ccount: number = schPub.citedBy.length
+    //   }
+    // }
   }
 }
 
@@ -145,8 +198,7 @@ export function handleScholarVerified(event: ScholarVerified): void {
     scholar.fields = event.params._fields
     scholar.subFields = event.params._subFields
     scholar.verified = true
-    // scholar.publications = event.params.
-    // scholar.hIndex = 10
+    scholar.publications = []
     scholar.save()
   }
 }

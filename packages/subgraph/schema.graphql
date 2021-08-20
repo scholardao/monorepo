@@ -9,12 +9,12 @@ type Paper @entity {
   reviews: [Review!]
   fields: [String!]!
   subFields: [String!]
-  references: [BigInt!]
+  references: [BigInt!]!
   validatorTip: BigInt!
   deadline: BigInt
   stage: PublicationStage!
   amountRaised: BigInt!
-  citedBy: [BigInt!]
+  citedBy: [BigInt!]!
 }
 
 type Scholar @entity {
@@ -23,7 +23,7 @@ type Scholar @entity {
   verified: Boolean!
   fields: [String!]
   subFields: [String!]
-  publications: [Paper!] # papers written by this scholar
+  publications: [Paper!]! # papers written by this scholar
   hIndex: Int
 }
 
@@ -34,7 +34,7 @@ type Validator @entity {
   fields: [String!]!
   subFields: [String!]!
   scholar: Scholar # this validator's scholar account on the network
-  publications: [Paper!] # papers published by this validator (written by scholars)
+  publications: [Paper!]! # papers published by this validator (written by scholars)
   hIndex: Int
   collateral: BigInt!
 }
