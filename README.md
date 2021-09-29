@@ -1,5 +1,11 @@
 # ScholarDAO
 
+ScholarDAO is a protocol for decentralized, autonomous publishing of scientific research. The project got into the finalist for ETHGlobal - HackFS. We also won the prize: "Best new subgraph runner up". 
+
+Link for our showcase page: https://showcase.ethglobal.com/hackfs2021/scholardao. 
+
+The branch that has the latest front-end is frontendcuong.
+
 Subgraph URL: https://thegraph.com/legacy-explorer/subgraph/scholardao/scholar-dao
 
 Workflow:
