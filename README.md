@@ -4,7 +4,7 @@ ScholarDAO is a protocol for decentralized, autonomous publishing of scientific 
 
 Link for our showcase page: https://showcase.ethglobal.com/hackfs2021/scholardao. 
 
-The branch that has the latest front-end is frontendcuong.
+The branch that has the latest front-end is **frontendcuong**.
 
 Subgraph URL: https://thegraph.com/legacy-explorer/subgraph/scholardao/scholar-dao
 
